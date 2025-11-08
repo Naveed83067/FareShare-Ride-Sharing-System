@@ -4,8 +4,8 @@ FareShare is a software engineering project to develop a localized, cross-platfo
 This repository contains the deliverables for Milestone 1: the Project Proposal and the initial documentation setup. The system will be developed using the Incremental Development Model and a React Native / Node.js / MongoDB technology stack to support deployment on both Android and iOS.
 
 Group Members:
-Name                      Role                 Roll Number            E-mail
-Muhammad Naveed           Group Lead           NUM-BSCS-2024-54       bscs24f54@namal.edu.pk
+
+Name                      Role                 Roll Number            E-mail<br>Muhammad Naveed           Group Lead           NUM-BSCS-2024-54       bscs24f54@namal.edu.pk<br>
 Muhammad Munawar          Group member         NUM-BSCS-2024-60       bscs24f60@namal.edu.pk
 Areeba Tahir              Group member         NUM-BSCS-2024-15       bscs24f15@namal.edu.pk
 
