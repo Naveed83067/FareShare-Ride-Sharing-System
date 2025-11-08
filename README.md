@@ -5,9 +5,23 @@ This repository contains the deliverables for Milestone 1: the Project Proposal 
 
 Group Members:
 
-Name                      Role                 Roll Number            E-mail<br>Muhammad Naveed           Group Lead           NUM-BSCS-2024-54       bscs24f54@namal.edu.pk<br>
-Muhammad Munawar          Group member         NUM-BSCS-2024-60       bscs24f60@namal.edu.pk
-Areeba Tahir              Group member         NUM-BSCS-2024-15       bscs24f15@namal.edu.pk
+Muhammad Naveed (Group Lead)
+
+NUM-BSCS-2024-54
+
+bscs24f54@namal.edu.pk
+
+Muhammad Munawar (Group member)  
+
+NUM-BSCS-2024-60  
+
+bscs24f60@namal.edu.pk
+
+Areeba Tahir (Group member) 
+
+NUM-BSCS-2024-15
+
+bscs24f15@namal.edu.pk
 
 Instructor: Asiya Batool (Department of Computer Science)
 
