@@ -24,4 +24,4 @@ Meeting Minutes (Google Sheet Link):
 
 First Meeting Video (Direct Link to GitHub file/folder):
 
-[PASTE DIRECT LINK TO Meeting_Videos/first_meeting.mp4 HERE]
+[https://github.com/Naveed83067/FareShare-Ride-Sharing-System/tree/2f561e9a02bc90a3b594ec01005f9328f9574370/Meeting-Videos]
