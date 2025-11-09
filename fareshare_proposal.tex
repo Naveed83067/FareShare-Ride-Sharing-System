@@ -1,0 +1,334 @@
+\documentclass[12pt, a4paper]{article}
+
+
+\usepackage{fontspec}
+\usepackage[english]{babel}
+\babelfont{rm}{Noto Sans} 
+
+
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{amsmath}
+
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=25mm,
+    right=25mm,
+    top=25mm,
+    bottom=25mm,
+}
+
+\definecolor{NUGreen}{HTML}{006400}
+\definecolor{NUBlue}{HTML}{000080}
+
+\titleformat{\section}
+    {\normalfont\Large\bfseries\color{NUBlue}} 
+    {\thesection.}{1em}{}
+\titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+\titleformat{\subsection}
+    {\normalfont\large\bfseries\color{NUGreen}}
+    {\thesubsection}{1em}{}
+
+\newcommand{\ProjectTitle}{FareShare: A Ride-Sharing System}
+\newcommand{\SubjectTitle}{Software Engineering}
+\newcommand{\SubmissionDate}{November 9, 2025}
+\newcommand{\DepartmentName}{Department of Computer Science}
+\newcommand{\UniversityName}{Namal University, Mianwali}
+\newcommand{\GroupName}{FareShare Team} 
+\newcommand{\RPName}{Rana Muhammad Adeel}
+
+\newcommand{\MemberA}{Muhammad Naveed (Group Lead) | NUM-BSCS-2024-54}
+\newcommand{\MemberB}{Munawar Ali | NUM-BSCS-2024-60}
+\newcommand{\MemberC}{Areeba Tahir | NUM-BSCS-2024-15}
+\newcommand{\InstructorName}{Asiya Batool}
+
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{FareShare Project Proposal}}
+\fancyhead[R]{\thepage} 
+\fancyfoot[C]{}
+\renewcommand{\headrulewidth}{0.4pt} 
+\setlength{\headheight}{15pt} 
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=NUBlue,
+    filecolor=magenta,
+    urlcolor=NUGreen,
+    pdftitle={\ProjectTitle\ Proposal},
+    pdfauthor={Muhammad Naveed, Munawar Ali, Areeba Tahir},
+}
+
+\begin{document}
+\onehalfspacing 
+
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+\includegraphics[width=0.3\textwidth]{uni logo.png}\\[1cm]
+    {\Huge \textbf{\UniversityName}}\\[0.3cm]
+    {\large \DepartmentName}\\[2cm]
+
+    {\Large \textbf{\SubjectTitle}}\\[0.5cm]
+    {\large Proposal Document }\\[2cm]
+
+    {\Huge \textbf{FareShare}}\\[0.5cm]
+    {\Large \textit{A Ride-Sharing System}}\\[3cm]
+
+    \begin{flushleft}
+    \large
+    \textbf{Team Members:}\\[0.3cm]
+    \begin{tabular}{lll}
+        \textbf{Name} & \textbf{Roll Number} & \textbf{Role} \\
+        Muhammad Naveed & NUM-BSCS-2024-54 & Group Lead \\
+        Munawar Ali & NUM-BSCS-2024-60& Group Member \\
+        Areeba Tahir & NUM-BSCS-2024-15& Group Member \\
+    \end{tabular}
+    \end{flushleft}
+
+    \vfill
+
+    {\large \textbf{Instructor:} \InstructorName} \\
+    {\large \textbf{Submission Date:} \SubmissionDate}
+
+\end{titlepage}
+
+
+\newpage
+\section*{Requirement Provider Agreement}
+\addcontentsline{toc}{section}{Requirement Provider Agreement}
+
+\vspace{1cm}
+
+This agreement confirms the collaboration between the Development team and the Requirement Provider (RP) for the project titled \textbf{"FareShare: A Ride-Sharing System"}. The RP will guide the team by providing real-world requirements and necessary feedback.
+
+\vspace{1cm}
+
+\subsection*{Requirement Provider Details}
+\begin{tabular}{ll}
+    \textbf{Name:} & \RPName \\[0.3cm]
+    \textbf{Designation:} & Final Year Student, Computer Science \\[0.3cm]
+    \textbf{Organization:} & \UniversityName \\[0.3cm]
+    \textbf{Email:} & \textit{bscs22f12@namal.edu.pk}\\[0.3cm]
+    \textbf{Contact Number:} & \textit{03056493350}\\[0.3cm]
+\end{tabular}
+
+\vspace{1.5cm}
+
+\subsection*{Student Group Lead Details}
+\begin{tabular}{ll}
+    \textbf{Name:} & Muhammad Naveed \\[0.3cm]
+    \textbf{Roll Number:} & NUM-BSCS-2024-54 \\[0.3cm]
+    \textbf{Email:} & \textit{bscs2024f54@namal.edu.pk}\\[0.3cm]
+    \textbf{Contact Number:} & \textit{03280567830}\\[0.3cm]
+\end{tabular}
+
+\vspace{2cm}
+
+\subsection*{Terms of Agreement}
+\begin{enumerate}
+    \item The Requirement Provider agrees to meet with the Development team to discuss project requirements, progress, and provide feedback.
+    \item The Development team commits to conducting regular meetings with the RP, minimum of once every two weeks.
+    \item The RP will provide timely input on prototypes and deliverables to ensure the system meets real-world needs.
+    \item All team and RP interactions, including meetings, will be formally documented with meeting minutes and video/audio recordings.
+\end{enumerate}
+
+\vspace{2cm}
+
+\noindent
+\begin{minipage}{0.45\textwidth}
+    \textbf{Requirement Provider Signature:}\\[1cm]
+    \includegraphics[width=0.8\textwidth]{rp signature.png}\\ 
+    
+    \rule{0.8\textwidth}{0.4pt}\\
+    \RPName \\
+    Date: \underline{05 Nov, 2025}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+    \textbf{Group Lead Signature:}\\[1cm]
+    \includegraphics[width=0.8\textwidth]{lead signature.png}\\
+    \rule{0.8\textwidth}{0.4pt}\\
+    Muhammad Naveed \\
+    Date: \underline{05 Nov, 2025}
+\end{minipage}
+
+\newpage
+\section{Table of Content}
+\tableofcontents
+
+\newpage
+\section{Introduction}
+
+This proposal consists of the plan for developing a new ride-sharing application named FareShare,  on RP's demand, the project will be designed for the Pakistani market. It will be an application that will be deployed on google play store and apple's Istore and will be able to operate on all Android devices and iOS devices. The project aims to provide a reliable, cost-effective, and safe alternative to existing platforms like Careem, inDrive, and Yango. FareShare belongs to the general area of transportation.
+
+\subsection{Background}
+The concept of ride-sharing and booking has become very popular in Pakistan nowadays, many applications like Careem, inDrive, and Yango are already providing these services attempting to make transportation convenient and modernize. However, existing services sometimes face challenges related to high commission rates for drivers, inconsistent availability in smaller cities, and fluctuating fares for riders. This background context highlights the need for a local system that is more fair and adaptable to local economic conditions.
+
+\subsection{Project Overview}
+FareShare will be a mobile application-based system connecting riders who need a ride with nearby drivers. It will feature separate app interfaces for riders and drivers, a powerful backend for matching and pricing, and security features to ensure trust and safety for all users. The system addresses a genuine market need and will have a positive impact on the existing transportation system and will be an improvement to existing platforms.
+
+\newpage
+\section{Problem Statement}
+
+Existing ride-sharing services operating in Pakistan often have two main problems: high commission and unpredictable rates for drivers, ultimately increasing prices for riders. These issues lead to driver dissatisfaction and make the service expensive or unreliable for many users, especially outside major metropolitan areas and remote areas.
+
+\subsection{Current Challenges}
+The key challenges that FareShare aims to overcome are:
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+    \item \textbf{High Commissions:} High percentages taken by international companies reduce driver income, leading to fewer drivers being active and making the service unavailable.
+    \item \textbf{Inconsistent Fares:} Fares can change suddenly and greatly due to demand (dynamic pricing), making travel costs unpredictable for riders specially for those who dont travel much.
+    \item \textbf{Localized Service Gaps:} Coverage and service quality are often poor in smaller cities and towns.
+\end{itemize}
+
+\subsection{Impact}
+This problem affects both \textbf{local drivers}, who struggle to make a sustainable income, and \textbf{riders}, who face high costs and service uncertainty. By solving this, FareShare can provide more affordable, reliable transport.
+
+\newpage
+\section{Project Objectives}
+
+The main objectives of the FareShare project are given below:
+
+\begin{enumerate}
+    \item \textbf{Cross-Platform Application Development:} To develop and deploy functional mobile applications for both riders (user) and drivers on both\textbf{ Android }and\textbf{ iOS} platforms to handle ride booking and acceptance.
+    \item \textbf{Real-Time Matching and Tracking:} To implement a backend system capable of accurately matching riders with the nearest available drivers and providing real-time GPS tracking for active rides.
+    \item \textbf{Fair Pricing Model:} To create and integrate a dynamic, transparent pricing model that offers competitive fares to riders while ensuring a fair and sustainable profit margin for drivers.
+    \item \textbf{Safety and Security Features:} To include essential safety features such as an in-app emergency button, ride sharing details, and a two-way rating system for both riders and drivers.
+\end{enumerate}
+
+\newpage
+\section{Stakeholder Identification}
+
+This system will interact or related with several key groups and individuals who are essential for its operation and success.
+
+\subsection{Primary Stakeholders}
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+    \item \textbf{Riders (End Users):} Individuals who use the mobile application to book and pay for rides. Their role is to provide demand for the service.
+    \item \textbf{Drivers (End Users):} Individuals who use the mobile application to accept ride requests and provide the transportation service. Their role is to fulfill the demand.
+    \item \textbf{System Administrators (The Team):} The development team responsible for managing the backend server, database, user accounts, and addressing technical issues.
+\end{itemize}
+
+\subsection{Secondary Stakeholders}
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+    \item \textbf{Requirement Provider (\RPName):} The RP will provide the real-world perspective on necessary features and will validate the system requirements.
+    \item \textbf{Instructor (\InstructorName):} The instructor will supervise the project development process and will evaluate the final deliverables.
+    \item \textbf{Local Regulators:} These include the government bodies that set rules and safety standards for commercial transportation services.
+\end{itemize}
+\newpage
+\section{Software Development Methodology}
+
+\subsection{Chosen Methodology}
+The chosen software development methodology for the FareShare project is the \textbf{Incremental Development Model}, combined with the principles from Agile. This approach focuses on developing and delivering working parts of the system in small, manageable iterations and increments.
+
+\subsection{Justification}
+The Incremental Development Model is the best fit for the FareShare project because:
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+    \item \textbf{Modular System:} A ride-sharing app naturally divides into increments (e.g., matching, payment, safety features). The team will build the core functionality first and then add advanced features in the later increments.
+    \item \textbf{Early Customer Feedback:} After each increment, a working, testable product version is delivered to the Requirement Provider (\RPName) for evaluation, allowing the development team to find and fix errors early.
+    \item \textbf{Risk Reduction:} Complex features like real-time GPS tracking and fair pricing can be tested and stabilized in isolated increments, minimizing the risk of failure across the entire system.
+    \item \textbf{User Adaptability:} The iterative nature allows the team to easily incorporate changing market demands or new requirements (e.g., adding a specific payment gateway) without restarting the entire process.
+\end{itemize}
+
+\subsection{Development Schedule}
+Assuming a one-year (12-month) development timeline, the project will be divided into six two-month phases (increments):
+
+\begin{table}[h]
+\centering
+\begin{spacing}{1.2}
+\begin{tabular}{lll} 
+\toprule
+\textbf{Phase (Increment)} & \textbf{Duration} & \textbf{Key Activities} \\
+\midrule
+Phase 1 (Setup) & Month 1-2 & Requirements analysis, architecture design, setting up the development environment, and UI/UX design wireframes. \\
+\midrule
+Phase 2 (Core Logic) & Month 3-4 & Development of user authentication (login/signup), basic ride booking interface, and driver registration. \\
+\midrule
+Phase 3 (Matching) & Month 5-6 & Implementation of the real-time matching algorithm and initial GPS tracking functionality. \\
+\midrule
+Phase 4 (Pricing/Payment) & Month 7-8 & Integrating the fair pricing model, estimated fare calculation, and a prototype payment gateway setup. \\
+\midrule
+Phase 5 (Safety/Testing) & Month 9-10 & Full implementation of safety features (emergency button, ratings) and dedicated system testing (functional and non-functional). \\
+\midrule
+Phase 6 (Deployment) & Month 11-12 & Final user acceptance testing (UAT) with the RP, debugging, **cross-platform deployment (Android/iOS)**, and writing final documentation. \\
+\bottomrule
+\end{tabular}
+\end{spacing}
+\caption{Tentative Incremental Development Schedule}
+\end{table}
+
+\newpage
+\section{Tools and Technologies}
+
+The selection of tools focuses on modern, open-source, and efficient technologies that allow for rapid \textbf{cross-platform mobile development}.
+
+\subsection{Programming Languages}
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+\item \textbf{Python:} Primary language for the \textbf{backend/server-side} development, utilizing powerful frameworks for system logic and data processing.
+\item \textbf{JavaScript/TypeScript:} Used for the frontend (\textbf{React Native}) development to ensure native cross-platform mobile functionality.
+\end{itemize}
+
+\subsection{Frameworks and Libraries}
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+\item Frontend (Mobile): React Native\textbf{ }- Will be used to build native, cross-platform mobile applications for both Rider and Driver roles (Android and iOS).
+\item Backend (Server):Python (e.g., Django or Flask)- A robust and scalable environment for building the API that handles all system logic, matching, and data exchange.
+\item Geolocation/Maps: Google Maps Platform APIs - Essential for real-time location tracking, calculating distances, and displaying the map interface.
+\end{itemize}
+
+\subsection{Database Management}
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+\item \textbf{Database:} MongoDB - A flexible NoSQL database suitable for handling the high volume of real-time, unstructured data typical in a ride-sharing system (e.g., location coordinates, driver status).
+\end{itemize}
+
+\subsection{Development Tools}
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+\item \textbf{IDE:} \textbf{Visual Studio Code (VS Code)} - The integrated development environment for writing and debugging both frontend and backend code.
+\item \textbf{Version Control:} \textbf{GitHub} (Used for collaboration and hosting the code repository).
+\item \textbf{Design Tools:} \textbf{Figma} (Used for creating mockups and the final user interface/experience (UI/UX) design).
+\item \textbf{Project Management:} Trello or similar kanban board tool.
+\end{itemize}
+
+\subsection{Deployment Platforms}
+\begin{itemize}[leftmargin=*, label=$\bullet$]
+\item \textbf{Platform:} Firebase/Google Cloud Platform (GCP) - Used for hosting the Python server and MongoDB database, providing scalable infrastructure.
+\item \textbf{Mobile Deployment:} Deployment will target the \textbf{Google Play Store (Android)} and the \textbf{Apple App Store (iOS)}.
+\end{itemize}
+
+\newpage
+\section{References}
+
+\subsection{Alternative Applications }
+
+Here are the main sources that we used as reference for the FareShare project:
+
+\begin{enumerate}
+\item Yango Technologies, \textit{Yango Ride-Hailing Service}. Available online: \url{https://yango.com/}
+\item inDrive, \textit{inDrive Mobility Platform}. Available online: \url{https://indrive.com/}
+\end{enumerate}
+\subsection{AI Tool Usage }
+
+The following AI-generated prompts were used during the preparation of this proposal, primarily for content structuring, drafting, and checking:
+
+\begin{enumerate}
+    \item \textbf{Prompt:} "how to reate a basic and professional latex template for a software engineering project ".
+    \item \textbf{Prompt:} "refine the problem statement for a ride-sharing app to focus on high driver commissions and fare inconsistency in Pakistan."
+    \item \textbf{Prompt:} "which laguage and frame work should be used to develop a cross-platform system."
+    \item \textbf{Prompt:} "how should be the database of the ridesharing system."
+    \item \textbf{Prompt:} "suggest a 12 month plan and devide the ride sharing system into incriments accordingly"
+    \item \textbf{Prompt:} "which technologies should be used for cross-platform development for Android and iOS."
+    \item \textbf{Prompt:} "suggest which process model should be used for a ride-sharing application."
+\end{enumerate}
+
+\end{document}
