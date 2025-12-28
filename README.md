@@ -18,8 +18,6 @@ This repository serves as the central hub for all deliverables related to the Fa
 
 <div align="center">
 
-### Project Supervision
-
 **Instructor:** Asiya Batool  
 *(Department of Computer Science, Namal University Mianwali)*
 
@@ -33,6 +31,8 @@ This repository serves as the central hub for all deliverables related to the Fa
 ## 🔗 Required Links for Evaluation
 
 * **Meeting Minutes:** [View Google Sheet](https://docs.google.com/spreadsheets/d/1icNtoJUt-Sqbvc_5QsccybhQL6K0P7KoVlpiBb76orc/edit?gid=0#gid=0)
+* **Use Case Diagram:** [View Diagram](https://drive.google.com/file/d/13236W8RstxJFNPdqwINWRRlSt3D906r-/view?usp=sharing)
+* **Context Diagram:** [View Diagram](https://drive.google.com/file/d/1H_FXS0gClzhZq4oXsX54bbxyGmEsJgrN/view?ts=694ba6ed)
 
 ---
 
