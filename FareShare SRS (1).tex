@@ -1,0 +1,627 @@
+\documentclass[12pt,a4paper]{article}
+
+% -------------------- Packages --------------------
+\usepackage{graphicx}      % For images
+\usepackage{geometry}      % For margins
+\usepackage{setspace}      % For line spacing
+\usepackage{longtable}     % For tables that span multiple pages
+\usepackage{float}         % For figure positioning
+\usepackage{hyperref}      % For clickable links
+\usepackage{array}         % For table formatting
+\usepackage{enumitem}      % For list customization
+\usepackage{titlesec}      % For section formatting
+\usepackage{fancyhdr}      % For headers and footers
+\usepackage{tabularx}      % For adjustable table columns
+\usepackage{booktabs}      % For professional looking tables
+
+% -------------------- Formatting Setup --------------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={FareShare SRS},
+}
+
+% Standard margins for IEEE 830 style documents
+\geometry{
+    top=1in,
+    bottom=1in,
+    left=1in,
+    right=1in
+}
+
+\onehalfspacing
+
+% Header and Footer Configuration
+\pagestyle{fancy}
+\fancyhf{}
+% Header: Title on Left, Right is empty
+\lhead{\textbf{FareShare SRS}} 
+\rhead{} 
+% Footer: University on Left, Page Number on Right
+\lfoot{Namal University Mianwali}
+\rfoot{Page \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Deep numbering for detailed structure (e.g., 3.1.1.1)
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+
+% Custom command for Requirement Tables to ensure length and detail
+\newcommand{\reqtable}[7]{
+    \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{longtable}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Requirement ID} & \textbf{#1} \\ \hline
+    \textbf{Feature Name} & #2 \\ \hline
+    \textbf{Description} & #3 \\ \hline
+    \textbf{Inputs} & #4 \\ \hline
+    \textbf{Processing Logic} & #5 \\ \hline
+    \textbf{Outputs} & #6 \\ \hline
+    \textbf{Error Handling} & #7 \\ \hline
+    \end{longtable}
+    \end{center}
+    \vspace{0.5cm}
+}
+
+% -------------------- Document Start --------------------
+\begin{document}
+
+% -------------------- Title Page --------------------
+\begin{titlepage}
+\centering
+\vspace*{0.5cm}
+
+% --- LOGO ---
+\begin{figure}[H]
+    \centering
+    % Ensure 'uni logo.png' is in the directory
+    \includegraphics[width=0.35\textwidth]{uni logo.png}
+\end{figure}
+% -----------------------
+
+\vspace{1cm}
+{\Large \textbf{Namal University, Mianwali}}\\[0.5cm]
+{\large Department of Computer Science}\\
+{\large Software Engineering}\\[2cm]
+
+{\Huge \textbf{Software Requirements Specification}}\\[0.5cm]
+{\Large \textbf{for}}\\[0.5cm]
+{\Huge \textbf{FareShare}}\\[0.5cm]
+{\Large A Ride-Sharing System}\\[2cm]
+
+\textbf{ Team FareShare:}\\[0.5cm]
+
+\begin{longtable}{|p{5cm}|p{5cm}|p{4cm}|}
+\hline
+\textbf{Name} & \textbf{Roll Number} & \textbf{Role} \\ \hline
+Muhammad Naveed & NUM-BSCS-2024-54 & Group Lead \\ \hline
+Munawar Ali & NUM-BSCS-2024-60 & Group Member \\ \hline
+Areeba Tahir & NUM-BSCS-2024-15 & Group Member \\ \hline
+\end{longtable}
+
+\vfill
+
+\textbf{Instructor:} Asiya Batool\\
+\textbf{Requirement Provider:} Rana Muhammad Adeel\\
+\textbf{Submission Date:} December 28, 2025
+
+\end{titlepage}
+
+% -------------------- Table of Contents --------------------
+\newpage
+\tableofcontents
+\newpage
+\listoftables
+\listoffigures
+\newpage
+
+% -------------------- 1. Introduction --------------------
+\section{Introduction}
+
+\subsection{Purpose}
+The purpose of this Software Requirements Specification (SRS) is to provide a detailed description of the \textbf{FareShare} ride-sharing system. This document is intended to guide the development team, project managers, and quality assurance personnel through the software development lifecycle. It details the functional and non-functional requirements, interfaces, and system constraints.
+
+This document adheres to the **IEEE Std 830-1984** guidelines for Software Requirements Specifications. It defines the complete behavior of the FareShare system, ensuring that the software delivered satisfies the needs of the stakeholders, particularly focusing on a **cash-based economy** operational model where no digital payment gateways are integrated.
+
+\subsection{Scope}
+FareShare is a mobile-based application ecosystem designed to facilitate transportation services in Pakistan. The system connects riders seeking transportation with nearby drivers willing to provide rides.
+
+The \textbf{FareShare System} will:
+\begin{itemize}
+    \item Provide separate Android/iOS applications for Riders and Drivers.
+    \item Utilize GPS services for real-time location tracking and navigation.
+    \item Implement an intelligent matching algorithm to pair riders with the nearest available drivers.
+    \item Calculate fares dynamically based on distance, time, and vehicle category.
+    \item Operate strictly on a **Cash-Only** basis for fare collection.
+    \item Include safety features such as SOS alerts and ride monitoring.
+    \item Provide an Administrative Web Panel for user management and document verification.
+\end{itemize}
+
+The system explicitly \textbf{excludes}:
+\begin{itemize}
+    \item Integration with credit card processors (Stripe/Visa/Mastercard).
+    \item In-app digital wallets for storing monetary value.
+    \item Food delivery or courier services.
+\end{itemize}
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+\begin{longtable}{|p{3cm}|p{12cm}|}
+\hline
+\textbf{Term} & \textbf{Definition} \\ \hline
+SRS & Software Requirements Specification. \\ \hline
+GPS & Global Positioning System, used for geolocation. \\ \hline
+ETA & Estimated Time of Arrival. \\ \hline
+OTP & One-Time Password, used for phone verification. \\ \hline
+API & Application Programming Interface. \\ \hline
+Rider & The end-user requesting transportation. \\ \hline
+Driver & The verified service provider operating a vehicle. \\ \hline
+Admin & System administrator managing the backend operations. \\ \hline
+CNIC & Computerized National Identity Card (Pakistan). \\ \hline
+Cash-Only & A transaction model where payment is physically handed from Rider to Driver. \\ \hline
+\end{longtable}
+
+\subsection{Overview}
+The remainder of this document is organized as follows:
+\begin{itemize}
+    \item \textbf{Section 2} describes the general factors that affect the product and its requirements, including user characteristics and constraints.
+    \item \textbf{Section 3} provides the specific functional, non-functional, and interface requirements in detail.
+    \item \textbf{Section 4} contains the Appendices, including the Context Diagram and Use Case Diagram.
+\end{itemize}
+
+\newpage
+
+% -------------------- 2. General Description --------------------
+\section{General Description}
+
+\subsection{Product Perspective}
+FareShare is a standalone software system that interacts with several external entities. It operates within a client-server architecture:
+
+\begin{itemize}
+    \item \textbf{Mobile Clients:} The Rider and Driver applications serve as the front-end interfaces.
+    \item \textbf{Backend Server:} Hosted on a cloud infrastructure (e.g., AWS/DigitalOcean), handling business logic, database operations, and API requests.
+    \item \textbf{External APIs:}
+    \begin{itemize}
+        \item \textbf{Google Maps API:} For map rendering, geocoding, and route calculation.
+        \item \textbf{SMS Gateway:} For sending OTPs and emergency alerts.
+        \item \textbf{Firebase (FCM):} For push notifications.
+    \end{itemize}
+\end{itemize}
+
+The system functionality relies heavily on the availability and accuracy of these external interfaces.
+
+\subsection{Product Functions}
+The major functions of the system are grouped by module:
+
+\textbf{1. Account Management}
+\begin{itemize}
+    \item Registration via Phone Number.
+    \item Profile Management (Photo, Name, Email).
+    \item Driver Document Upload (License, CNIC, Registration).
+\end{itemize}
+
+\textbf{2. Ride Operations}
+\begin{itemize}
+    \item Real-time Driver Availability toggle.
+    \item Ride Booking (Pickup/Drop-off selection).
+    \item Fare Estimation (Cash basis).
+    \item Driver Matching Algorithm.
+    \item Ride Cancellation logic.
+\end{itemize}
+
+\textbf{3. Navigation \& Tracking}
+\begin{itemize}
+    \item Live GPS tracking of the driver.
+    \item Turn-by-turn navigation for drivers.
+    \item ETA calculation.
+\end{itemize}
+
+\textbf{4. Post-Ride}
+\begin{itemize}
+    \item Final Cash Fare Calculation.
+    \item Rating and Review System.
+    \item Ride History Log.
+\end{itemize}
+
+\subsection{User Characteristics}
+\begin{itemize}
+    \item \textbf{Riders:} General public, students, and professionals. Technical literacy ranges from low to high. They prioritize ease of use, safety, and transparent pricing.
+    \item \textbf{Drivers:} Vehicle owners seeking income. Educational backgrounds vary significantly. The Driver App interface must be highly visual, simple, and require minimal interaction while driving.
+    \item \textbf{Administrators:} Technical staff responsible for vetting drivers and managing system health. High technical literacy is assumed.
+\end{itemize}
+
+\subsection{General Constraints}
+\begin{itemize}
+    \item \textbf{Hardware:} The application requires smartphones with functional GPS, Camera, and Internet connectivity (4G/Wi-Fi).
+    \item \textbf{Reliability:} The system must handle intermittent network connectivity gracefully (e.g., store ride data locally until reconnected).
+    \item \textbf{Payment:} The system is constrained to \textbf{Cash-Only} transactions. No digital funds transfer is permitted within the app.
+    \item \textbf{Geography:} Initially limited to the Mianwali region.
+\end{itemize}
+
+\subsection{Assumptions and Dependencies}
+\begin{itemize}
+    \item It is assumed that all drivers possess valid legal documents.
+    \item It is assumed that Google Maps API services will remain operational.
+    \item It is assumed that users will grant location permissions to the application.
+\end{itemize}
+
+\newpage
+
+% -------------------- 3. Specific Requirements --------------------
+\section{Specific Requirements}
+
+\subsection{Functional Requirements}
+
+This section details the functional requirements of the system. Each requirement is defined with inputs, processing logic, and outputs.
+
+% --- MODULE: AUTHENTICATION ---
+\subsubsection{Module: Authentication \& Onboarding}
+
+\reqtable{FR-AUTH-01}{User Registration (Rider/Driver)}
+{The system shall allow new users to register an account using their mobile phone number.}
+{Mobile Number, Role Selection (Rider or Driver).}
+{1. Validate mobile number format (Pakistan format +92). \newline 2. Check database for existing accounts. \newline 3. Generate a random 6-digit OTP. \newline 4. Invoke SMS Gateway API to send OTP.}
+{OTP Sent Screen; Database record created with status 'Unverified'.}
+{If number exists: Prompt user to Login. If SMS fails: Display "Network Error".}
+
+\reqtable{FR-AUTH-02}{OTP Verification}
+{The system shall verify the user's mobile number via OTP.}
+{User entered 6-digit code.}
+{1. Retrieve stored OTP for the session. \newline 2. Compare entered code with stored code. \newline 3. Check if OTP is expired (> 2 minutes). \newline 4. If valid, generate JWT Access Token.}
+{User Dashboard (Rider or Driver Home). Session active.}
+{Invalid OTP: Display "Incorrect Code". Expired OTP: Display "Code Expired".}
+
+\reqtable{FR-AUTH-03}{Driver Document Submission}
+{The system shall require drivers to upload legal documents before going online.}
+{Images of: CNIC (Front), CNIC (Back), Driving License, Vehicle Registration.}
+{1. Validate image format (JPG/PNG). \newline 2. Upload images to secure cloud storage bucket. \newline 3. Update Driver Profile status to "Pending Approval". \newline 4. Create a verification ticket for Admin.}
+{Success Message: "Documents Submitted for Review".}
+{File too large (>5MB); Upload timeout.}
+
+% --- MODULE: RIDE BOOKING ---
+\subsubsection{Module: Ride Booking \& Matching}
+
+\reqtable{FR-BOOK-01}{Location Selection}
+{The Rider shall be able to set Pickup and Drop-off locations.}
+{Map Pin interaction or Text Search Address.}
+{1. If Text Search: Call Google Places API for suggestions. \newline 2. If Pin Drop: Call Geocoding API to get address from Lat/Long. \newline 3. Validate that location is within service area.}
+{Updated Map View with Route Line and Markers.}
+{Service Area Error: "FareShare is not available in this area".}
+
+\reqtable{FR-BOOK-02}{Fare Estimation (Cash)}
+{The system shall estimate the cash fare before the ride is booked.}
+{Pickup Coords, Drop-off Coords, Selected Vehicle Type.}
+{1. Calculate Distance (km) and Time (min) via Directions API. \newline 2. Retrieve Base Rate, Per Km Rate, Per Min Rate for vehicle type. \newline 3. Compute: $Fare = Base + (Km \times Rate) + (Time \times Rate)$.}
+{Estimated Fare Range (e.g., "PKR 200 - 230").}
+{Route Calculation Error.}
+
+\reqtable{FR-BOOK-03}{Ride Request Broadcasting}
+{The system shall find the nearest available drivers.}
+{Rider Location, Vehicle Type.}
+{1. Query Geospatial Database for drivers with status "Online" within 3km. \newline 2. Filter by Vehicle Type. \newline 3. Sort by Distance (Ascending). \newline 4. Send FCM Push Notification to the top candidate.}
+{Notification on Driver App: "New Ride Request".}
+{No Drivers Found: Display "No drivers available, try again later".}
+
+\reqtable{FR-BOOK-04}{Ride Acceptance}
+{The Driver shall accept a ride request to initiate the trip.}
+{Accept Button Press.}
+{1. Check if ride is still pending (not taken by another driver). \newline 2. Assign Driver ID to Ride Record. \newline 3. Change Ride Status to "Accepted". \newline 4. Send Confirmation to Rider.}
+{Navigation Screen loaded for Driver. Driver Profile loaded for Rider.}
+{Ride Expired/Taken: Display "Ride no longer available".}
+
+% --- MODULE: RIDE EXECUTION ---
+\subsubsection{Module: Ride Execution & Tracking}
+
+\reqtable{FR-EXEC-01}{Real-Time Tracking}
+{The Rider shall view the Driver's location in real-time.}
+{Driver GPS Stream (Lat, Long, Heading, Speed).}
+{1. Driver App emits location event via WebSocket every 3 seconds. \newline 2. Server relays data to the specific Rider's socket room. \newline 3. Rider App animates the car marker on the map.}
+{Smooth movement of vehicle icon on Rider Map.}
+{Connection Lost: "Reconnecting..." spinner.}
+
+\reqtable{FR-EXEC-02}{Start Ride}
+{The Driver shall mark the ride as started upon picking up the rider.}
+{Swipe "Start Ride".}
+{1. Validate Driver distance to Pickup (Geofence check). \newline 2. Record Start Time and Start Coordinates. \newline 3. Change Status to "In Progress".}
+{UI update: "Ride in Progress".}
+{Driver too far from pickup: "You must be at pickup location".}
+
+\reqtable{FR-EXEC-03}{End Ride & Final Calculation}
+{The system shall calculate the final cash fare upon completion.}
+{Swipe "End Ride", GPS Logs.}
+{1. Calculate actual distance traveled and duration. \newline 2. Apply pricing formula. \newline 3. Generate Final Cash Amount.}
+{Rider Screen: "Please Pay PKR [Amount]". Driver Screen: "Collect PKR [Amount]".}
+{GPS Drift: System uses estimated distance if actual GPS logs are corrupted.}
+
+\reqtable{FR-EXEC-04}{Cash Collection Confirmation}
+{The Driver must confirm they received the cash payment.}
+{Button "Cash Received".}
+{1. Update Ride Status to "Completed". \newline 2. Create Transaction Record (Cash). \newline 3. Release Driver to "Available" pool.}
+{Ride Summary & Rating Screen.}
+{N/A.}
+
+% --- MODULE: SAFETY ---
+\subsubsection{Module: Safety & Emergency}
+
+\reqtable{FR-SAFE-01}{SOS Alert}
+{Users can trigger an emergency alert during a ride.}
+{SOS Button Press.}
+{1. Capture current GPS location. \newline 2. Construct SMS with "Help! I am in danger. Track me here: [Link]". \newline 3. Send to pre-configured emergency contacts.}
+{SMS Sent Confirmation. Backend Admin Alert.}
+{SMS Gateway Failure.}
+
+\newpage
+
+% -------------------- 3.2 External Interface Requirements --------------------
+\subsection{External Interface Requirements}
+
+\subsubsection{User Interfaces}
+The system will provide a graphical user interface (GUI) compatible with Android and iOS touchscreens.
+
+\textbf{Rider App Screens:}
+\begin{enumerate}
+    \item \textbf{Home Map:} Full-screen map with a search bar at the top and a "Current Location" FAB.
+    \item \textbf{Vehicle Selection:} A bottom sheet displaying vehicle types (Bike, Rickshaw, Mini, Sedan) with icons and estimated prices.
+    \item \textbf{Ride Status Panel:} A card overlay showing Driver Name, Photo, Vehicle Plate, and Color. Includes "Call" and "Message" buttons.
+    \item \textbf{Payment Screen:} A full-screen prompt displaying the large Cash Amount to be paid.
+\end{enumerate}
+
+\textbf{Driver App Screens:}
+\begin{enumerate}
+    \item \textbf{Online/Offline Switch:} A prominent toggle to set availability.
+    \item \textbf{Request Modal:} A time-sensitive pop-up (15 seconds) showing Pickup Address, Distance, and Estimated Earning.
+    \item \textbf{Navigation Mode:} A 3D map view utilizing the Google Navigation SDK.
+    \item \textbf{Collection Screen:} A high-contrast screen showing the amount of cash to collect.
+\end{enumerate}
+
+\subsubsection{Hardware Interfaces}
+\begin{itemize}
+    \item \textbf{GPS Module:} The system requires access to the device's Location Services (Fine Location) for tracking.
+    \item \textbf{Camera:} Access is required for capturing profile photos and scanning driver documents.
+    \item \textbf{Network Radio:} The system uses the 4G/LTE/Wi-Fi radio for API communication.
+\end{itemize}
+
+\subsubsection{Software Interfaces}
+\begin{itemize}
+    \item \textbf{Operating System:} Android 8.0+ / iOS 14.0+.
+    \item \textbf{Database:} MongoDB (NoSQL) for storing user profiles and ride logs.
+    \item \textbf{Maps API:} Google Maps Platform for geocoding and rendering.
+    \item \textbf{Push Notification Service:} Firebase Cloud Messaging (FCM).
+\end{itemize}
+
+\subsubsection{Communication Interfaces}
+\begin{itemize}
+    \item \textbf{REST API:} Client-server communication over HTTPS using JSON format.
+    \item \textbf{WebSockets:} Socket.io protocol for real-time bi-directional event streaming (Location updates, Status changes).
+\end{itemize}
+
+\newpage
+
+% -------------------- 3.3 Non-Functional Requirements --------------------
+\subsection{Non-Functional Requirements}
+
+\subsubsection{Performance Requirements}
+\begin{enumerate}
+    \item \textbf{Latency:} The Ride Matching algorithm must return a driver match within 10 seconds under normal load.
+    \item \textbf{Throughput:} The backend system must support at least 500 concurrent ride requests per minute.
+    \item \textbf{App Start Time:} The mobile application must launch and render the map within 4 seconds.
+    \item \textbf{Tracking Update Rate:} Driver location must update on the Rider's screen at least every 5 seconds.
+\end{enumerate}
+
+\subsubsection{Safety Requirements}
+\begin{enumerate}
+    \item \textbf{Data Backup:} User data and ride logs must be backed up incrementally every 24 hours.
+    \item \textbf{Driver Vetting:} The system must prevent drivers from accepting rides until their documents have been manually verified by an Administrator.
+\end{enumerate}
+
+\subsubsection{Security Requirements}
+\begin{enumerate}
+    \item \textbf{Encryption:} All data in transit must be encrypted using TLS 1.2 or higher.
+    \item \textbf{Password Storage:} Passwords (if used) must be hashed using Bcrypt.
+    \item \textbf{Privacy:} User phone numbers should be masked when making calls through the app (if VoIP is implemented) or strictly controlled.
+    \item \textbf{Authorization:} API endpoints must be protected using JWT (JSON Web Tokens) to ensure only authenticated users can access data.
+\end{enumerate}
+
+\subsubsection{Software Quality Attributes}
+\begin{itemize}
+    \item \textbf{Reliability:} The system availability target is 99.9\% uptime during business hours.
+    \item \textbf{Usability:} The UI must be intuitive enough for a user with basic smartphone literacy to book a ride within 3 clicks.
+    \item \textbf{Maintainability:} The code must adhere to modular architecture standards to allow for easy updates and feature additions.
+\end{itemize}
+
+\newpage
+
+% -------------------- 4. Appendices --------------------
+\section{Appendices}
+
+\subsection{Appendix A: Context Diagram}
+The following Context Diagram illustrates the boundary of the FareShare system and its interaction with external entities (Rider, Driver, Admin, Payment System, Maps API).
+
+\begin{figure}[H]
+    \centering
+    % Ensure 'context.png' is in the directory
+    \includegraphics[width=0.9\textwidth]{context.png}
+    \caption{Context Diagram of FareShare System}
+    \label{fig:context}
+\end{figure}
+
+\newpage
+
+\subsection{Appendix B: Use Case Diagram}
+The Use Case Diagram depicts the primary actors and their interactions with the system's use cases.
+
+\begin{figure}[H]
+    \centering
+    % Ensure 'usecase.jpeg' is in the directory
+    \includegraphics[width=0.9\textwidth]{usecase.jpeg}
+    \caption{Use Case Diagram of FareShare System}
+    \label{fig:usecase}
+\end{figure}
+
+\newpage
+
+\subsection{Appendix C: Detailed Use Case Narratives}
+
+\subsubsection{Use Case 1: Book a Ride}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-01 \\ \hline
+\textbf{Use Case Name} & Book a Ride \\ \hline
+\textbf{Primary Actor} & Rider \\ \hline
+\textbf{Pre-conditions} & Rider is logged in; GPS is enabled; Internet is active. \\ \hline
+\textbf{Main Flow} & 
+1. Rider opens the application. \newline
+2. System displays current location on map. \newline
+3. Rider enters destination "Namal College". \newline
+4. System calculates route and displays "Estimated Cash Fare: PKR 300". \newline
+5. Rider selects vehicle type "Car". \newline
+6. Rider clicks "Book Now". \newline
+7. System searches for nearby drivers. \newline
+8. System matches a driver and displays Driver Profile. \\ \hline
+\textbf{Alternative Flow} & 
+7a. No drivers are found. \newline
+7b. System displays "No drivers available". \newline
+7c. Rider retries or cancels. \\ \hline
+\textbf{Post-conditions} & Ride status is "Accepted". Driver is en route. \\ \hline
+\end{longtable}
+
+\subsubsection{Use Case 2: Accept a Ride}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-02 \\ \hline
+\textbf{Use Case Name} & Accept Ride Request \\ \hline
+\textbf{Primary Actor} & Driver \\ \hline
+\textbf{Pre-conditions} & Driver is Online; Driver status is Available. \\ \hline
+\textbf{Main Flow} & 
+1. System sends ride request notification to Driver. \newline
+2. Driver views Pickup Location and Estimated Fare. \newline
+3. Driver taps "Accept" within 15 seconds. \newline
+4. System assigns the ride to the Driver. \newline
+5. System launches navigation to pickup point. \\ \hline
+\textbf{Alternative Flow} & 
+3a. Driver ignores request or taps "Decline". \newline
+3b. System forwards request to the next available driver. \\ \hline
+\textbf{Post-conditions} & Driver status changes to "Busy". \\ \hline
+\end{longtable}
+
+\subsubsection{Use Case 3: Complete Ride \& Collect Cash}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-03 \\ \hline
+\textbf{Use Case Name} & Complete Ride \\ \hline
+\textbf{Primary Actor} & Driver \\ \hline
+\textbf{Pre-conditions} & Ride is "In Progress". \\ \hline
+\textbf{Main Flow} & 
+1. Driver arrives at destination. \newline
+2. Driver swipes "End Ride". \newline
+3. System calculates final fare based on GPS logs. \newline
+4. System displays "Collect PKR 300". \newline
+5. Rider pays cash. \newline
+6. Driver taps "Cash Received". \\ \hline
+\textbf{Post-conditions} & Ride is closed. Transaction recorded. \\ \hline
+\end{longtable}
+
+\subsubsection{Use Case 4: Cancel Ride (Rider)}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-04 \\ \hline
+\textbf{Use Case Name} & Cancel Ride \\ \hline
+\textbf{Primary Actor} & Rider \\ \hline
+\textbf{Pre-conditions} & Ride has been booked but not started. \\ \hline
+\textbf{Main Flow} & 
+1. Rider taps "Cancel Ride". \newline
+2. System prompts for a cancellation reason. \newline
+3. Rider selects a reason (e.g., "Driver too far"). \newline
+4. System notifies the Driver of cancellation. \newline
+5. System updates ride status to "Cancelled". \\ \hline
+\textbf{Alternative Flow} & 
+2a. Driver has already arrived. \newline
+2b. System warns Rider of potential cancellation fee. \newline
+2c. Rider confirms cancellation. \\ \hline
+\textbf{Post-conditions} & Ride is cancelled. Driver is returned to Available pool. \\ \hline
+\end{longtable}
+
+\subsubsection{Use Case 5: Rate Driver}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-05 \\ \hline
+\textbf{Use Case Name} & Rate Driver \\ \hline
+\textbf{Primary Actor} & Rider \\ \hline
+\textbf{Pre-conditions} & Ride has been completed. \\ \hline
+\textbf{Main Flow} & 
+1. System presents Rating Screen. \newline
+2. Rider selects Star Rating (1-5). \newline
+3. Rider enters optional comment. \newline
+4. Rider taps "Submit". \newline
+5. System updates Driver's average rating. \\ \hline
+\textbf{Post-conditions} & Rating is saved in database. \\ \hline
+\end{longtable}
+
+\subsubsection{Use Case 6: View Ride History}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-06 \\ \hline
+\textbf{Use Case Name} & View Ride History \\ \hline
+\textbf{Primary Actor} & Rider or Driver \\ \hline
+\textbf{Pre-conditions} & User is logged in. \\ \hline
+\textbf{Main Flow} & 
+1. User navigates to "History" tab. \newline
+2. System retrieves list of past rides from database. \newline
+3. System displays summary (Date, Time, Cost, Route). \newline
+4. User taps a specific ride for details. \\ \hline
+\textbf{Post-conditions} & Detailed receipt view is displayed. \\ \hline
+\end{longtable}
+
+\subsubsection{Use Case 7: Update User Profile}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-07 \\ \hline
+\textbf{Use Case Name} & Update Profile \\ \hline
+\textbf{Primary Actor} & Rider or Driver \\ \hline
+\textbf{Pre-conditions} & User is logged in. \\ \hline
+\textbf{Main Flow} & 
+1. User navigates to "Settings" -> "Profile". \newline
+2. User edits Name or Email. \newline
+3. User uploads new Profile Picture. \newline
+4. User taps "Save". \newline
+5. System validates inputs and updates database. \\ \hline
+\textbf{Post-conditions} & User profile is updated across the app. \\ \hline
+\end{longtable}
+
+\subsubsection{Use Case 8: Toggle Availability Status}
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Use Case ID} & UC-08 \\ \hline
+\textbf{Use Case Name} & Toggle Online Status \\ \hline
+\textbf{Primary Actor} & Driver \\ \hline
+\textbf{Pre-conditions} & Driver is logged in and documents are verified. \\ \hline
+\textbf{Main Flow} & 
+1. Driver taps the "Online/Offline" switch. \newline
+2. System checks GPS signal strength. \newline
+3. System updates Driver status in geospatial index. \newline
+4. UI updates to show "You are Online". \\ \hline
+\textbf{Post-conditions} & Driver is visible to nearby riders. \\ \hline
+\end{longtable}
+
+\newpage
+
+\subsection{Appendix D: Data Dictionary}
+
+\begin{longtable}{|p{4cm}|p{3cm}|p{8cm}|}
+\hline
+\textbf{Data Element} & \textbf{Type} & \textbf{Description} \\ \hline
+UserID & UUID & Unique identifier for every user. \\ \hline
+PhoneNumber & String & Unique mobile number used for login. \\ \hline
+Role & Enum & 'Rider', 'Driver', or 'Admin'. \\ \hline
+VehicleType & Enum & 'Bike', 'Rickshaw', 'Mini', 'Sedan'. \\ \hline
+RideStatus & Enum & 'Searching', 'Accepted', 'Arrived', 'In\_Progress', 'Completed', 'Cancelled'. \\ \hline
+GeoPoint & JSON & \{ lat: Float, lng: Float \}. \\ \hline
+FareAmount & Decimal & The calculated cost of the trip in PKR. \\ \hline
+DriverDocument & String (URL) & Link to the stored image of legal docs. \\ \hline
+VerificationStatus & Enum & 'Unverified', 'Pending', 'Verified', 'Rejected'. \\ \hline
+\end{longtable}
+
+\end{document}
