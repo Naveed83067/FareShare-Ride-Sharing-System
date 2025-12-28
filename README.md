@@ -1,27 +1,15 @@
 # FareShare-Ride-Sharing-System
 FareShare is a software engineering project to develop a localized, cross-platform ride-sharing application for the Pakistani market. The system aims to provide a reliable, cost-effective alternative to existing international platforms by focusing on fair pricing for riders and sustainable commission rates for drivers.
 
-This repository contains the deliverables for Milestone 1: the Project Proposal and the initial documentation setup. The system will be developed using the Incremental Development Model and a React Native / Node.js / MongoDB technology stack to support deployment on both Android and iOS.
+This repository contains the deliverables for the FareShare (A ride sharing system) that is being developed as a Software Engineering course project.
 
 Group Members:
 
-Muhammad Naveed (Group Lead)
+Muhammad Naveed (Group Lead)             Muhammad Munawar (Group member)                Areeba Tahir (Group member) 
 
-NUM-BSCS-2024-54
+NUM-BSCS-2024-54                         NUM-BSCS-2024-60                               NUM-BSCS-2024-15
 
-bscs24f54@namal.edu.pk
-
-Muhammad Munawar (Group member)  
-
-NUM-BSCS-2024-60  
-
-bscs24f60@namal.edu.pk
-
-Areeba Tahir (Group member) 
-
-NUM-BSCS-2024-15
-
-bscs24f15@namal.edu.pk
+bscs24f54@namal.edu.pk                   bscs24f60@namal.edu.pk                         bscs24f15@namal.edu.pk
 
 Instructor: Asiya Batool (Department of Computer Science)
 
