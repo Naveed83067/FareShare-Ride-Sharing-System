@@ -1,0 +1,2640 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tabularx}
+% More specific TOC formatting
+\usepackage[titles]{tocloft}
+
+% Remove boxes and add blue links
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    allcolors=blue,
+    linktoc=all,
+    pdfborder={0 0 0}  % Remove border completely
+}
+
+% Optional: Adjust TOC spacing and appearance
+\renewcommand{\cfttoctitlefont}{\color{headerblue}\Large\bfseries}
+\renewcommand{\cftsecfont}{\color{headerblue}}
+\renewcommand{\cftsubsecfont}{\color{headerblue}}
+\renewcommand{\cftsubsubsecfont}{\color{headerblue}}
+
+% Page layout
+\geometry{margin=1in, headheight=15pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize FareShare SRS}
+\fancyhead[C]{\footnotesize Version 2.0}
+\fancyhead[R]{\footnotesize \thepage\ of \pageref{LastPage}}
+\fancyfoot[C]{\footnotesize \textcopyright\ 2026 Namal University, Mianwali}
+
+% Custom colors
+\definecolor{headerblue}{RGB}{41, 128, 185}
+\definecolor{tableblue}{RGB}{236, 240, 245}
+
+% Custom section formatting
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{headerblue}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}
+  {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{headerblue}}
+  {\thesubsubsection}{1em}{}
+
+% Table formatting
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlist[itemize]{noitemsep, topsep=2pt, leftmargin=*}
+\setlist[enumerate]{noitemsep, topsep=2pt, leftmargin=*}
+
+\title{
+\begin{figure}[H]
+    \centering
+    % Ensure 'uni logo.png' is in the directory
+    \includegraphics[width=0.35\textwidth]{uni logo.png}
+\end{figure}
+ \vspace{0.3cm}
+ \textbf{Namal University, Mianwali}\\
+    \textbf{Department of Computer Science}
+    \vspace{2cm}
+    \textbf{\Huge Software Requirements Specification}\\
+    \vspace{0.5cm}
+    \textbf{\LARGE for}\\
+    \vspace{0.5cm}
+    \textbf{\Huge FareShare}\\
+    \vspace{0.3cm}
+    \textbf{\Large A Ride-Sharing and Fare-Sharing System}\\
+    \vspace{1cm}
+    \large Version 2.0 - Complete Edition\\
+}
+
+\author{
+    \textbf{Team FareShare}\\
+    \vspace{0.5cm}
+    \begin{tabular}{lll}
+        \textbf{Muhammad Naveed} & NUM-BSCS-2024-54 & Group Lead\\
+        \textbf{Munawar Ali} & NUM-BSCS-2024-60 & Group Member\\
+        \textbf{Areeba Tahir} & NUM-BSCS-2024-15 & Group Member\\
+    \end{tabular}
+}
+
+\date{
+    \textbf{Instructor:} Asiya Batool\\
+    \textbf{Requirement Provider:} Rana Muhammad Adeel\\
+    \vspace{0.3cm}
+    \textbf{Submission Date:} January 11, 2026\\
+}
+
+\begin{document}
+
+% Title page
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+% Table of Contents
+\tableofcontents
+\newpage
+
+% List of Figures and Tables
+\listoffigures
+\listoftables
+\newpage
+
+% Start of main content
+\section{Introduction}
+
+\subsection{Purpose}
+This Software Requirements Specification (SRS) document provides a comprehensive description of the FareShare ride-sharing and fare-sharing system. This document serves as the definitive source of requirements for all stakeholders including developers, testers, project managers, and the requirement provider.
+
+\textbf{Intended Audience:}
+\begin{itemize}
+    \item \textbf{Development Team:} For system design, implementation, and testing
+    \item \textbf{Quality Assurance Team:} For developing test plans and cases
+    \item \textbf{Project Managers:} For project planning and tracking
+    \item \textbf{Requirement Provider:} For validation and verification
+    \item \textbf{Academic Evaluation:} For course assessment and grading
+    \item \textbf{Future Maintenance Team:} For system enhancements and support
+\end{itemize}
+
+This document adheres to \textbf{IEEE Std 830-1984} guidelines for Software Requirements Specifications.
+
+\subsection{Scope}
+FareShare is an innovative transportation platform designed for the Pakistani market, featuring unique fare-sharing capabilities alongside traditional ride-hailing services.
+
+\subsubsection{System Boundaries}
+\begin{table}[H]
+\centering
+\caption{System Inclusions and Exclusions}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|}
+\hline
+\textbf{Aspect} & \textbf{Included (IN-SCOPE)} & \textbf{Excluded (OUT-OF-SCOPE)}\\
+\hline
+Payment Methods & Cash-only transactions & Digital payments, credit cards, mobile wallets\\
+\hline
+User Types & Riders, Drivers, Administrators & Corporate accounts, fleet managers\\
+\hline
+Features & Ride booking, fare-sharing, SOS, ratings, tracking & Food delivery, package delivery, ride scheduling\\
+\hline
+Geography & Initial: Mianwali region, Expandable to other Pakistani cities & International operations\\
+\hline
+Technology & Mobile apps (Android/iOS), Web admin panel, Cloud backend & IoT integration, blockchain, cryptocurrency\\
+\hline
+Verification & Manual document verification by administrators & Automated background checks, biometric verification\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Business Objectives}
+\begin{enumerate}
+    \item Reduce transportation costs by 30-50\% through fare-sharing
+    \item Provide fair income to drivers with 15\% commission (vs. 25-30\% competitors)
+    \item Achieve 95\% rider satisfaction through transparent pricing
+    \item Ensure 100\% driver verification before ride acceptance
+    \item Maintain 99.5\% system availability during operational hours
+    \item Process 10,000 rides monthly within first year of operation
+    \item Achieve 4.0+ average rating on app stores
+\end{enumerate}
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+
+\begin{table}[H]
+\centering
+\caption{Complete Terminology Reference}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Term} & \textbf{Definition}\\
+\hline
+\textbf{SRS} & Software Requirements Specification - Formal document defining system requirements\\
+\hline
+\textbf{Rider} & End-user requesting transportation services (passenger)\\
+\hline
+\textbf{Driver} & Verified vehicle operator providing transportation services\\
+\hline
+\textbf{Admin} & System administrator managing operations and verifications\\
+\hline
+\textbf{Primary Rider} & Initial rider who books and initiates a ride\\
+\hline
+\textbf{Secondary Rider} & Additional rider joining through fare-sharing feature\\
+\hline
+\textbf{Fare-Sharing} & Feature allowing multiple riders to share ride and split cost\\
+\hline
+\textbf{SOS} & Emergency alert system for rider/driver safety\\
+\hline
+\textbf{CNIC} & Computerized National Identity Card (Pakistani national ID)\\
+\hline
+\textbf{OTP} & One-Time Password for authentication\\
+\hline
+\textbf{GPS} & Global Positioning System for location tracking\\
+\hline
+\textbf{ETA} & Estimated Time of Arrival\\
+\hline
+\textbf{FCM} & Firebase Cloud Messaging for push notifications\\
+\hline
+\textbf{JWT} & JSON Web Token for secure authentication\\
+\hline
+\textbf{API} & Application Programming Interface\\
+\hline
+\textbf{REST} & Representational State Transfer architecture\\
+\hline
+\textbf{NoSQL} & Non-relational database (MongoDB)\\
+\hline
+\textbf{UI/UX} & User Interface/User Experience\\
+\hline
+\textbf{TLS} & Transport Layer Security encryption\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Document Overview}
+\begin{itemize}
+    \item \textbf{Section 2:} General system description and context
+    \item \textbf{Section 3:} Comprehensive functional requirements by module
+    \item \textbf{Section 4:} Complete non-functional requirements
+    \item \textbf{Section 5:} External interface specifications
+    \item \textbf{Section 6:} System models and diagrams
+    \item \textbf{Section 7:} Appendices and supplementary information
+\end{itemize}
+
+\newpage
+
+\section{General Description}
+
+\subsubsection{System Components}
+\begin{table}[H]
+\centering
+\caption{System Component Description}
+\begin{tabularx}{\textwidth}{|l|X|X|}
+\hline
+\textbf{Component} & \textbf{Technology} & \textbf{Responsibility}\\
+\hline
+Rider Mobile App & React Native (Android/iOS) & Booking, tracking, payments, safety features\\
+\hline
+Driver Mobile App & React Native (Android/iOS) & Ride acceptance, navigation, earnings management\\
+\hline
+Admin Web Panel & React.js + Bootstrap & User management, verification, analytics\\
+\hline
+Backend Server & Node.js/Python Django & Business logic, APIs, database operations\\
+\hline
+Database & MongoDB + Redis Cache & Data persistence, session management\\
+\hline
+Real-time Service & Socket.io WebSockets & Live tracking, notifications\\
+\hline
+External APIs & Google Maps, SMS Gateway & Maps, routes, OTP, emergency alerts\\
+\hline
+Cloud Infrastructure & AWS/DigitalOcean & Hosting, scalability, storage\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Product Functions}
+The system provides comprehensive functionality across all user roles:
+
+\subsubsection{Complete Functional Matrix}
+\begin{table}[H]
+\centering
+\caption{Functionality by User Role}
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
+\hline
+\textbf{Module} & \textbf{Rider Functions} & \textbf{Driver Functions} & \textbf{Admin Functions}\\
+\hline
+Authentication & Register, Login, Profile Setup & Register, Document Upload, Verification & Login, Role Management\\
+\hline
+Ride Management & Book, Cancel, Track, Rate & Accept, Navigate, Complete, Rate & Monitor, Intervene, Report\\
+\hline
+Fare-Sharing & Enable, Search, Join, Split Fare & Approve, Manage Multiple Pickups & Monitor, Adjust Rules\\
+\hline
+Safety & SOS, Share Ride, Emergency Contacts & SOS, Verify Riders & Emergency Response, Alert Management\\
+\hline
+Payments & Cash Payment, Receipt View & Cash Collection, Earnings View & Revenue Reports, Commission Tracking\\
+\hline
+Administration & Profile Management & Vehicle Management, Availability & User Management, System Configuration\\
+\hline
+Analytics & Ride History, Spending Reports & Earnings Reports, Performance Stats & System Analytics, Business Intelligence\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{User Characteristics}
+
+\subsubsection{Rider Profile}
+\begin{table}[H]
+\centering
+\caption{Rider User Characteristics}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Characteristic} & \textbf{Description}\\
+\hline
+Age Range & 16-65 years (16-18 require parental consent)\\
+\hline
+Education & High school to postgraduate\\
+\hline
+Technical Proficiency & Basic to advanced smartphone usage\\
+\hline
+Frequency of Use & Daily commuters to occasional users\\
+\hline
+Primary Needs & Affordability, safety, reliability, convenience\\
+\hline
+Payment Preference & Cash-based (aligned with local economy)\\
+\hline
+Language & Urdu primary, English secondary\\
+\hline
+Device Ownership & 95\% smartphone penetration in target demographic\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Profile}
+\begin{table}[H]
+\centering
+\caption{Driver User Characteristics}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Characteristic} & \textbf{Description}\\
+\hline
+Age Range & 21-60 years (legal driving age 18+)\\
+\hline
+Education & Matriculation to intermediate typically\\
+\hline
+Technical Proficiency & Basic smartphone usage, navigation apps\\
+\hline
+Vehicle Ownership & Personal or authorized commercial vehicles\\
+\hline
+Income Motivation & Primary or supplementary income source\\
+\hline
+Working Hours & Flexible, part-time to full-time\\
+\hline
+Safety Concerns & Personal safety, vehicle security, fair payment\\
+\hline
+Training Required & App usage, navigation, customer service\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Administrator Profile}
+\begin{table}[H]
+\centering
+\caption{Administrator User Characteristics}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Characteristic} & \textbf{Description}\\
+\hline
+Education & Bachelor's in Computer Science or related field\\
+\hline
+Technical Skills & Database management, system monitoring, analytics\\
+\hline
+Responsibilities & User verification, dispute resolution, system maintenance\\
+\hline
+Work Schedule & Rotational shifts for 24/7 coverage\\
+\hline
+Decision Authority & Document approval, user suspension, fare adjustments\\
+\hline
+Tools Proficiency & Web interfaces, analytics dashboards, communication tools\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{General Constraints}
+
+\subsubsection{Technical Constraints}
+\begin{table}[H]
+\centering
+\caption{Technical System Constraints}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Constraint Category} & \textbf{Constraint Description}\\
+\hline
+Platform Compatibility & Android 8.0+, iOS 14.0+, Web browsers (Chrome 90+, Firefox 88+)\\
+\hline
+Device Requirements & GPS, Camera, 4G/LTE, Minimum 2GB RAM, 100MB storage\\
+\hline
+Network Requirements & Minimum 3G, Recommended 4G/LTE, GPS signal availability\\
+\hline
+Performance Limits & Max 500 concurrent rides, 10,000 active users\\
+\hline
+Data Storage & User data: 5 years retention, Ride data: 90 days active, 5 years archive\\
+\hline
+Third-party Dependencies & Google Maps API (critical), SMS Gateway, FCM\\
+\hline
+Security Compliance & TLS 1.3+, AES-256 encryption, Pakistani data protection laws\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Business Constraints}
+\begin{table}[H]
+\centering
+\caption{Business and Operational Constraints}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Constraint Category} & \textbf{Constraint Description}\\
+\hline
+Geographic Limit & Initial: Mianwali region (50km radius)\\
+\hline
+Service Hours & 24/7 operation with reduced support 12AM-5AM\\
+\hline
+Payment Model & Cash-only, no digital payments or wallets\\
+\hline
+Commission Structure & Fixed 15\% commission from driver earnings\\
+\hline
+Driver Requirements & Valid license, vehicle registration, insurance, CNIC\\
+\hline
+Rider Requirements & Minimum age 16, phone verification, emergency contacts\\
+\hline
+Legal Compliance & Pakistan transport regulations, data protection laws\\
+\hline
+Support Capacity & 100 support tickets/day maximum\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Assumptions and Dependencies}
+
+\subsubsection{Critical Assumptions}
+\begin{table}[H]
+\centering
+\caption{System Assumptions}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Assumption Category} & \textbf{Assumption Details}\\
+\hline
+User Behavior & Users will grant location permissions, maintain app updates\\
+\hline
+Market Conditions & Sufficient driver/rider adoption in target areas\\
+\hline
+Infrastructure & Reliable internet and GPS coverage in service areas\\
+\hline
+Legal Environment & Current transport regulations remain favorable\\
+\hline
+Technical Environment & External APIs remain available and affordable\\
+\hline
+Economic Factors & Cash economy remains dominant in target market\\
+\hline
+Safety & Users will provide accurate emergency contact information\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Critical Dependencies}
+\begin{table}[H]
+\centering
+\caption{System Dependencies}
+\begin{tabularx}{\textwidth}{|l|X|X|}
+\hline
+\textbf{Dependency} & \textbf{Impact if Unavailable} & \textbf{Mitigation Strategy}\\
+\hline
+Google Maps API & Core functionality fails & Cache maps, offline fallback routes\\
+\hline
+SMS Gateway & User verification impossible & Email fallback, manual verification\\
+\hline
+Internet Connectivity & Real-time features disabled & Offline mode with sync on reconnect\\
+\hline
+GPS Signal & Location tracking fails & Network-based location estimation\\
+\hline
+App Store Approval & Cannot distribute updates & Progressive Web App alternative\\
+\hline
+Payment Cash Flow & Drivers cannot earn & Daily cash settlements, emergency fund\\
+\hline
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\section{Specific Requirements - Functional}
+
+\subsection{Authentication \& User Management Module}
+
+\subsubsection{Rider Authentication Requirements}
+\begin{table}[H]
+\centering
+\caption{Rider Authentication Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-AUTH-01} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Rider Registration via Phone Number & Priority & Critical\\
+\hline
+Description & System shall allow new riders to register using Pakistani mobile number\\
+\hline
+Preconditions & User has valid Pakistani mobile number (+92 format)\\
+\hline
+Inputs & Mobile number, User role selection (Rider)\\
+\hline
+Processing & 1. Validate number format\\
+& 2. Check existing registration\\
+& 3. Generate 6-digit OTP\\
+& 4. Send OTP via SMS\\
+& 5. Create unverified user record\\
+\hline
+Outputs & OTP sent confirmation, Pending verification status\\
+\hline
+Postconditions & User can proceed to OTP verification\\
+\hline
+Error Handling & Duplicate number: "Number already registered"\\
+& Invalid format: "Please enter valid Pakistani number"\\
+& SMS failure: "Could not send SMS, try again"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Rider OTP Verification Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-AUTH-02} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & OTP Verification & Priority & Critical\\
+\hline
+Description & System shall verify rider's mobile number via OTP\\
+\hline
+Preconditions & OTP sent to valid mobile number\\
+\hline
+Inputs & 6-digit OTP entered by user\\
+\hline
+Processing & 1. Retrieve stored OTP for session\\
+& 2. Compare with entered OTP\\
+& 3. Check OTP expiration (2 minutes)\\
+& 4. Generate JWT access token\\
+& 5. Update user status to verified\\
+\hline
+Outputs & Access token, Rider dashboard, Verification success\\
+\hline
+Postconditions & User can access all rider features\\
+\hline
+Error Handling & Invalid OTP: "Incorrect code, try again" (3 attempts max)\\
+& Expired OTP: "Code expired, request new OTP"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Authentication Requirements}
+\begin{table}[H]
+\centering
+\caption{Driver Registration Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-AUTH-03} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Driver Registration with Documents & Priority & Critical\\
+\hline
+Description & System shall register drivers with mandatory document submission\\
+\hline
+Preconditions & User selects Driver role, has required documents\\
+\hline
+Inputs & Mobile number, CNIC images (front/back), Driving license, Vehicle registration\\
+\hline
+Processing & 1. Perform rider registration steps\\
+& 2. Upload document images to secure storage\\
+& 3. Validate image formats and sizes\\
+& 4. Create verification ticket for admin\\
+& 5. Set status: "Pending Verification"\\
+\hline
+Outputs & Registration success, Documents under review message\\
+\hline
+Postconditions & Driver can login but cannot accept rides until verified\\
+\hline
+Error Handling & Invalid document: "Please upload clear images"\\
+& File too large: "Maximum 5MB per image"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Administrator Authentication Requirements}
+\begin{table}[H]
+\centering
+\caption{Admin Authentication Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-AUTH-04} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Administrator Login & Priority & Critical\\
+\hline
+Description & System shall provide secure admin authentication\\
+\hline
+Preconditions & Admin account created by super admin\\
+\hline
+Inputs & Username/Email, Password, 2FA code (if enabled)\\
+\hline
+Processing & 1. Validate credentials against admin database\\
+& 2. Check account status (active/suspended)\\
+& 3. Verify 2FA if enabled\\
+& 4. Generate admin JWT with elevated privileges\\
+& 5. Log login attempt with IP address\\
+\hline
+Outputs & Admin dashboard, Session token, Login timestamp\\
+\hline
+Postconditions & Admin can access management features based on role\\
+\hline
+Error Handling & Invalid credentials: "Access denied"\\
+& Account locked: "Contact super administrator"\\
+& 2FA failure: "Invalid authentication code"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Profile Management Requirements}
+\begin{table}[H]
+\centering
+\caption{User Profile Management Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-AUTH-05} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Profile Management & Priority & High\\
+\hline
+Description & Users shall manage their personal information\\
+\hline
+Preconditions & User is logged in and verified\\
+\hline
+Inputs & Name, Email, Profile photo, Emergency contacts\\
+\hline
+Processing & 1. Validate input data format\\
+& 2. Upload profile photo to cloud storage\\
+& 3. Update user record in database\\
+& 4. Verify emergency contact numbers\\
+& 5. Send confirmation to updated email (if changed)\\
+\hline
+Outputs & Profile updated confirmation, Updated profile view\\
+\hline
+Postconditions & Changes reflected across system\\
+\hline
+Error Handling & Invalid email: "Please enter valid email"\\
+& Duplicate emergency contact: "Contact already exists"\\
+& Photo upload failed: "Could not upload image"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Ride Booking \& Management Module}
+
+\subsubsection{Ride Booking Requirements}
+\begin{table}[H]
+\centering
+\caption{Ride Booking Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-BOOK-01} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Location Selection & Priority & Critical\\
+\hline
+Description & Rider shall select pickup and drop-off locations\\
+\hline
+Preconditions & Rider is logged in, GPS enabled, Internet available\\
+\hline
+Inputs & Pickup location (auto-detected or manual), Drop-off location\\
+\hline
+Processing & 1. Get current location via GPS\\
+& 2. Provide address search with autocomplete\\
+& 3. Validate locations within service area\\
+& 4. Calculate route and display on map\\
+& 5. Show pickup pin, drop-off pin, route line\\
+\hline
+Outputs & Map with locations marked, Route distance and time\\
+\hline
+Postconditions & Ready for vehicle selection and fare estimation\\
+\hline
+Error Handling & Outside service area: "Service not available here"\\
+& Invalid address: "Could not find location"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Fare Estimation Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-BOOK-02} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Fare Estimation & Priority & Critical\\
+\hline
+Description & System shall provide fare estimate before booking\\
+\hline
+Preconditions & Valid pickup and drop-off locations selected\\
+\hline
+Inputs & Pickup coordinates, Drop-off coordinates, Vehicle type\\
+\hline
+Processing & 1. Calculate route distance and time via Google Maps\\
+& 2. Retrieve pricing for vehicle type\\
+& 3. Apply formula: Base + (Distance × Rate) + (Time × Rate)\\
+& 4. Add 15\% commission\\
+& 5. Round to nearest PKR 10\\
+\hline
+Outputs & Estimated fare range (e.g., PKR 200-250)\\
+\hline
+Postconditions & Rider can decide to proceed with booking\\
+\hline
+Error Handling & Route calculation failed: "Could not calculate fare"\\
+& Pricing data missing: "Service temporarily unavailable"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Matching Requirements}
+\begin{table}[H]
+\centering
+\caption{Driver Matching Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-BOOK-03} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Driver Search and Matching & Priority & Critical\\
+\hline
+Description & System shall find and match nearest available drivers\\
+\hline
+Preconditions & Ride request created with valid parameters\\
+\hline
+Inputs & Rider location, Vehicle type preference, Rider rating\\
+\hline
+Processing & 1. Query geospatial index for online drivers within 5km\\
+& 2. Filter by vehicle type availability\\
+& 3. Sort by: Proximity (60\%), Rating (25\%), Acceptance rate (15\%)\\
+& 4. Select top 3 drivers\\
+& 5. Send push notification to selected drivers\\
+\hline
+Outputs & Driver match results, Notifications sent\\
+\hline
+Postconditions & Drivers have 30 seconds to accept\\
+\hline
+Error Handling & No drivers available: "No drivers nearby, try again"\\
+& All drivers decline: "Could not find driver, please retry"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Ride Acceptance Requirements}
+\begin{table}[H]
+\centering
+\caption{Ride Acceptance Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-BOOK-04} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Driver Ride Acceptance & Priority & Critical\\
+\hline
+Description & Driver shall accept ride requests within time limit\\
+\hline
+Preconditions & Driver is online and available, Notification received\\
+\hline
+Inputs & Accept/Decline button press\\
+\hline
+Processing & 1. Check if ride still available (not taken)\\
+& 2. Assign driver to ride record\\
+& 3. Update ride status to "Accepted"\\
+& 4. Notify rider with driver details\\
+& 5. Start navigation to pickup\\
+\hline
+Outputs & Ride acceptance confirmation, Navigation started\\
+\hline
+Postconditions & Ride moves to active state, Driver status: Busy\\
+\hline
+Error Handling & Ride already taken: "Ride no longer available"\\
+& Timeout: "Request expired"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Ride Cancellation Requirements}
+\begin{table}[H]
+\centering
+\caption{Ride Cancellation Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-BOOK-05} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Ride Cancellation & Priority & High\\
+\hline
+Description & Users shall cancel rides with appropriate handling\\
+\hline
+Preconditions & Ride exists and is cancellable (not completed)\\
+\hline
+Inputs & Cancellation request with reason\\
+\hline
+Processing & \textbf{Rider Cancellation:}\\
+& 1. Check cancellation window (before driver arrives)\\
+& 2. Apply cancellation fee if applicable\\
+& 3. Notify driver\\
+& 4. Update ride status to "Cancelled"\\
+& \textbf{Driver Cancellation:}\\
+& 1. Check if pickup not reached\\
+& 2. Apply penalty to driver rating\\
+& 3. Notify rider and find alternative driver\\
+\hline
+Outputs & Cancellation confirmation, Fee/Penalty applied\\
+\hline
+Postconditions & Ride closed, Users returned to available state\\
+\hline
+Error Handling & Invalid cancellation: "Cannot cancel at this stage"\\
+& Multiple cancellations: "Excessive cancellations may limit service"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Fare-Sharing Module}
+
+\subsubsection{Fare-Sharing Activation Requirements}
+\begin{table}[H]
+\centering
+\caption{Fare-Sharing Activation Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SHARE-01} & \textbf{Requirement Type} & \textbf{Enhanced}\\
+\hline
+Feature Name & Enable Fare-Sharing & Priority & High\\
+\hline
+Description & Primary rider shall enable fare-sharing for their ride\\
+\hline
+Preconditions & Ride accepted by driver, Not yet started\\
+\hline
+Inputs & "Enable Sharing" toggle, Maximum passengers\\
+\hline
+Processing & 1. Check vehicle capacity for additional riders\\
+& 2. Calculate potential fare reduction\\
+& 3. Get driver approval\\
+& 4. Make ride visible to nearby riders\\
+& 5. Update ride as "Sharable"\\
+\hline
+Outputs & Sharing enabled confirmation, Updated fare estimate\\
+\hline
+Postconditions & Ride appears in shared rides search\\
+\hline
+Error Handling & Driver rejected: "Driver declined sharing request"\\
+& Vehicle full: "Maximum capacity reached"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Shared Ride Search Requirements}
+\begin{table}[H]
+\centering
+\caption{Shared Ride Search Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SHARE-02} & \textbf{Requirement Type} & \textbf{Enhanced}\\
+\hline
+Feature Name & Search Shared Rides & Priority & High\\
+\hline
+Description & Riders shall search for available shared rides\\
+\hline
+Preconditions & Rider logged in, Location services enabled\\
+\hline
+Inputs & Current location, Destination, Time preference\\
+\hline
+Processing & 1. Query sharable rides within 2km radius\\
+& 2. Filter by direction compatibility (15\% route deviation)\\
+& 3. Sort by: Proximity (40\%), Fare saving (40\%), ETA (20\%)\\
+& 4. Calculate individual fare for each option\\
+& 5. Display with pickup ETA and savings\\
+\hline
+Outputs & List of available shared rides with details\\
+\hline
+Postconditions & Rider can select and request to join\\
+\hline
+Error Handling & No shared rides: "No shared rides available, book individual"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Join Shared Ride Requirements}
+\begin{table}[H]
+\centering
+\caption{Join Shared Ride Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SHARE-03} & \textbf{Requirement Type} & \textbf{Enhanced}\\
+\hline
+Feature Name & Join Shared Ride & Priority & High\\
+\hline
+Description & Secondary rider shall request to join shared ride\\
+\hline
+Preconditions & Shared ride available, Seats remaining\\
+\hline
+Inputs & Join request with pickup location\\
+\hline
+Processing & 1. Validate pickup is on route (within 500m deviation)\\
+& 2. Send join request to primary rider and driver\\
+& 3. Wait for approvals (60 seconds timeout)\\
+& 4. If approved: Add rider, Recalculate fares\\
+& 5. Update all riders with new details\\
+\hline
+Outputs & Join request sent, Approval pending\\
+\hline
+Postconditions & Ride continues with additional passenger\\
+\hline
+Error Handling & Request rejected: "Join request declined"\\
+& Timeout: "No response, request cancelled"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Fare Splitting Requirements}
+\begin{table}[H]
+\centering
+\caption{Fare Splitting Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SHARE-04} & \textbf{Requirement Type} & \textbf{Enhanced}\\
+\hline
+Feature Name & Dynamic Fare Splitting & Priority & High\\
+\hline
+Description & System shall split fare fairly among shared riders\\
+\hline
+Preconditions & Shared ride with multiple riders completed\\
+\hline
+Inputs & Individual journey segments, Vehicle pricing rates\\
+\hline
+Processing & 1. Calculate total route distance and time\\
+& 2. Determine each rider's segment distance/time\\
+& 3. Apply proportional formula:\\
+& Fare = Base/n + (Dist_i/TotalDist × DistFare) + (Time_i/TotalTime × TimeFare)\\
+& 4. Ensure minimum 25\% savings vs individual ride\\
+& 5. Round to nearest PKR 10\\
+\hline
+Outputs & Individual fare amounts, Total collected amount\\
+\hline
+Postconditions & Each rider sees their specific fare\\
+\hline
+Error Handling & Calculation error: Use fallback equal splitting\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Safety \& Emergency Module}
+
+\subsubsection{SOS Emergency System Requirements}
+\begin{table}[H]
+\centering
+\caption{SOS Emergency Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SAFE-01} & \textbf{Requirement Type} & \textbf{Critical}\\
+\hline
+Feature Name & SOS Emergency Alert & Priority & Critical\\
+\hline
+Description & Users shall trigger emergency alerts during rides\\
+\hline
+Preconditions & Active ride in progress, Network connectivity\\
+\hline
+Inputs & SOS button press (3-second hold)\\
+\hline
+Processing & 1. Capture current GPS location\\
+& 2. Retrieve ride details and user information\\
+& 3. Send SMS to emergency contacts:\\
+& "EMERGENCY: [User] needs help. Location: [Link]. Ride: [Details]"\\
+& 4. Notify FareShare emergency response team\\
+& 5. Start continuous location tracking (every 30 seconds)\\
+& 6. Record emergency in audit log\\
+\hline
+Outputs & SOS activated confirmation, Alerts sent, Admin notified\\
+\hline
+Postconditions & Emergency response initiated, Ride flagged\\
+\hline
+Error Handling & SMS failed: Retry 3 times, then store locally\\
+& No network: Store alert, send when connectivity resumes\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Emergency Contact Management}
+\begin{table}[H]
+\centering
+\caption{Emergency Contact Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SAFE-02} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Emergency Contact Management & Priority & High\\
+\hline
+Description & Users shall manage emergency contacts\\
+\hline
+Preconditions & User logged in and verified\\
+\hline
+Inputs & Contact name, Phone number, Relationship\\
+\hline
+Processing & 1. Validate phone number format\\
+& 2. Check duplicate entries\\
+& 3. Send verification SMS to contact\\
+& 4. Store verified contact\\
+& 5. Limit: 3 emergency contacts maximum\\
+\hline
+Outputs & Contact saved, Verification sent\\
+\hline
+Postconditions & Contact available for emergency alerts\\
+\hline
+Error Handling & Invalid number: "Please enter valid number"\\
+& Verification failed: "Could not verify contact"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Ride Sharing Safety Requirements}
+\begin{table}[H]
+\centering
+\caption{Ride Sharing Safety Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SAFE-03} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Ride Sharing with Trusted Contacts & Priority & High\\
+\hline
+Description & Users shall share ride details with trusted contacts\\
+\hline
+Preconditions & Active or upcoming ride\\
+\hline
+Inputs & Share button, Contact selection\\
+\hline
+Processing & 1. Generate ride sharing link with live tracking\\
+& 2. Send via SMS/WhatsApp:\\
+& "I'm taking a FareShare ride. Track me: [Link]"\\
+& 3. Include: Driver details, Vehicle info, Route, ETA\\
+& 4. Enable contact to view real-time location\\
+\hline
+Outputs & Sharing link generated, Message sent\\
+\hline
+Postconditions & Contact can monitor ride progress\\
+\hline
+Error Handling & Sharing failed: "Could not share ride details"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Safety Verification}
+\begin{table}[H]
+\centering
+\caption{Driver Safety Verification Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-SAFE-04} & \textbf{Requirement Type} & \textbf{Critical}\\
+\hline
+Feature Name & Driver Background Verification & Priority & Critical\\
+\hline
+Description & System shall ensure driver safety through verification\\
+\hline
+Preconditions & Driver registration submitted\\
+\hline
+Inputs & CNIC, License, Registration documents\\
+\hline
+Processing & 1. Admin manually verifies document authenticity\\
+& 2. Check for any previous violations or bans\\
+& 3. Verify vehicle fitness and insurance\\
+& 4. Set verification status: Approved/Rejected\\
+& 5. Record verification details and admin ID\\
+\hline
+Outputs & Verification result, Driver status updated\\
+\hline
+Postconditions & Driver can go online (if approved)\\
+\hline
+Error Handling & Documents unclear: Request better quality images\\
+& Verification failed: Notify driver with reason\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Administrative Module}
+
+\subsubsection{User Management Requirements}
+\begin{table}[H]
+\centering
+\caption{User Management Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-ADMIN-01} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Comprehensive User Management & Priority & High\\
+\hline
+Description & Admin shall manage all system users\\
+\hline
+Preconditions & Admin logged in with user management permissions\\
+\hline
+Inputs & Search filters, User actions (suspend, verify, delete)\\
+\hline
+Processing & 1. Search users by: Phone, Name, Status, Date\\
+& 2. View user details: Profile, Rides, Ratings, Documents\\
+& 3. Perform actions: Verify, Suspend, Delete, Warn\\
+& 4. Record admin action with reason\\
+& 5. Notify user of significant changes\\
+\hline
+Outputs & User list, Action confirmation, Audit log entry\\
+\hline
+Postconditions & User status updated, Affected rides handled\\
+\hline
+Error Handling & Invalid action: "Cannot perform this action"\\
+& User not found: "User does not exist"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Verification Requirements}
+\begin{table}[H]
+\centering
+\caption{Driver Verification Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-ADMIN-02} & \textbf{Requirement Type} & \textbf{Critical}\\
+\hline
+Feature Name & Driver Document Verification & Priority & Critical\\
+\hline
+Description & Admin shall verify driver documents manually\\
+\hline
+Preconditions & Driver submitted documents, Pending verification\\
+\hline
+Inputs & Document images, Verification decision, Comments\\
+\hline
+Processing & 1. Display documents in verification interface\\
+& 2. Check: CNIC validity, License authenticity, Registration\\
+& 3. Make decision: Approve, Reject, Request more info\\
+& 4. If reject: Specify reason, Block ride acceptance\\
+& 5. If approve: Enable driver to go online\\
+& 6. Send notification to driver\\
+\hline
+Outputs & Verification status updated, Driver notified\\
+\hline
+Postconditions & Driver can (or cannot) accept rides\\
+\hline
+Error Handling & Documents missing: Request complete set\\
+& Verification conflict: Escalate to senior admin\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Emergency Response Requirements}
+\begin{table}[H]
+\centering
+\caption{Emergency Response Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-ADMIN-03} & \textbf{Requirement Type} & \textbf{Critical}\\
+\hline
+Feature Name & Emergency Alert Management & Priority & Critical\\
+\hline
+Description & Admin shall monitor and respond to emergency alerts\\
+\hline
+Preconditions & SOS alert triggered by user\\
+\hline
+Inputs & Emergency alert details, Response actions\\
+\hline
+Processing & 1. Display real-time emergency dashboard\\
+& 2. Show: User details, Location, Ride info, Contact info\\
+& 3. Enable: Call user, Call driver, Contact emergency services\\
+& 4. Track response actions and timeline\\
+& 5. Mark as resolved when situation handled\\
+\hline
+Outputs & Emergency interface, Response log, Resolution status\\
+\hline
+Postconditions & Emergency handled, Follow-up actions recorded\\
+\hline
+Error Handling & Cannot reach user: Escalate to authorities\\
+& False alarm: Record and update user status\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Analytics \& Reporting Requirements}
+\begin{table}[H]
+\centering
+\caption{Analytics Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-ADMIN-04} & \textbf{Requirement Type} & \textbf{Enhanced}\\
+\hline
+Feature Name & System Analytics and Reporting & Priority & Medium\\
+\hline
+Description & Admin shall view system analytics and generate reports\\
+\hline
+Preconditions & Admin logged in with analytics permissions\\
+\hline
+Inputs & Date range, Report type, Filters\\
+\hline
+Processing & 1. Calculate key metrics: Rides, Revenue, Users, Ratings\\
+& 2. Generate visualizations: Charts, Graphs, Trends\\
+& 3. Create reports: Daily, Weekly, Monthly, Custom\\
+& 4. Export reports: PDF, Excel, CSV\\
+& 5. Monitor system health: Uptime, Errors, Performance\\
+\hline
+Outputs & Analytics dashboard, Reports, Export files\\
+\hline
+Postconditions & Data available for business decisions\\
+\hline
+Error Handling & Data unavailable: Show cached or estimated data\\
+& Export failed: Provide alternative format\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{System Configuration Requirements}
+\begin{table}[H]
+\centering
+\caption{System Configuration Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-ADMIN-05} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & System Configuration Management & Priority & High\\
+\hline
+Description & Admin shall configure system parameters\\
+\hline
+Preconditions & Admin logged in with configuration permissions\\
+\hline
+Inputs & Configuration values, Service areas, Pricing, Rules\\
+\hline
+Processing & 1. Update pricing: Base fares, Distance rates, Time rates\\
+& 2. Manage service areas: Add/remove regions\\
+& 3. Configure rules: Cancellation fees, Commission rates\\
+& 4. Set system parameters: Timeouts, Limits, Thresholds\\
+& 5. Validate changes before applying\\
+\hline
+Outputs & Configuration updated, Changes applied\\
+\hline
+Postconditions & New settings active across system\\
+\hline
+Error Handling & Invalid values: "Configuration validation failed"\\
+& Update conflict: "Another admin is modifying settings"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Rating \& Feedback Module}
+
+\subsubsection{Rating System Requirements}
+\begin{table}[H]
+\centering
+\caption{Rating System Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-RATE-01} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Two-Way Rating System & Priority & High\\
+\hline
+Description & Riders and drivers shall rate each other after rides\\
+\hline
+Preconditions & Ride completed successfully\\
+\hline
+Inputs & Star rating (1-5), Optional comments, Tags\\
+\hline
+Processing & \textbf{Rider rates Driver:}\\
+& 1. Prompt rider within 24 hours of ride completion\\
+& 2. Collect rating and feedback\\
+& 3. Update driver's average rating\\
+& 4. Store feedback for driver improvement\\
+& \textbf{Driver rates Rider:}\\
+& 1. Optional rating of rider behavior\\
+& 2. Flag problematic riders for admin review\\
+\hline
+Outputs & Rating submitted, Average updated\\
+\hline
+Postconditions & Ratings visible in user profiles\\
+\hline
+Error Handling & Already rated: "You have already rated this ride"\\
+& Rating window expired: "Rating period has ended"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Feedback Analysis Requirements}
+\begin{table}[H]
+\centering
+\caption{Feedback Analysis Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-RATE-02} & \textbf{Requirement Type} & \textbf{Enhanced}\\
+\hline
+Feature Name & Feedback Analysis and Reporting & Priority & Medium\\
+\hline
+Description & System shall analyze ratings and feedback\\
+\hline
+Preconditions & Ratings and feedback collected\\
+\hline
+Inputs & Rating data, Comments, Tags\\
+\hline
+Processing & 1. Calculate average ratings per user\\
+& 2. Identify trends: Common complaints, Praises\\
+& 3. Flag users with consistently low ratings\\
+& 4. Generate improvement suggestions\\
+& 5. Create rating reports for admin review\\
+\hline
+Outputs & Rating analytics, User performance reports\\
+\hline
+Postconditions & Data available for quality improvement\\
+\hline
+Error Handling & Insufficient data: "More ratings needed for analysis"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Payment \& Earnings Module}
+
+\subsubsection{Cash Payment Requirements}
+\begin{table}[H]
+\centering
+\caption{Cash Payment Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-PAY-01} & \textbf{Requirement Type} & \textbf{Critical}\\
+\hline
+Feature Name & Cash Payment Processing & Priority & Critical\\
+\hline
+Description & System shall handle cash payment confirmation\\
+\hline
+Preconditions & Ride completed, Fare calculated\\
+\hline
+Inputs & Driver confirmation of cash received\\
+\hline
+Processing & 1. Display final fare to rider and driver\\
+& 2. Driver confirms cash receipt via app\\
+& 3. System records payment as completed\\
+& 4. Calculate commission (15\% of fare)\\
+& 5. Update driver's earnings record\\
+& 6. Generate receipt for rider\\
+\hline
+Outputs & Payment confirmed, Earnings updated, Receipt generated\\
+\hline
+Postconditions & Ride fully completed, Payment recorded\\
+\hline
+Error Handling & Payment dispute: Initiate dispute resolution process\\
+& Confirmation missing: Reminder after 1 hour\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Earnings Management Requirements}
+\begin{table}[H]
+\centering
+\caption{Earnings Management Requirements}
+\begin{tabularx}{\textwidth}{|>{\bfseries}l|X|X|X|}
+\hline
+\textbf{Req ID} & \textbf{FR-PAY-02} & \textbf{Requirement Type} & \textbf{Mandatory}\\
+\hline
+Feature Name & Driver Earnings Management & Priority & High\\
+\hline
+Description & Drivers shall track and manage their earnings\\
+\hline
+Preconditions & Driver has completed rides with payments\\
+\hline
+Inputs & Date range, Earnings filters\\
+\hline
+Processing & 1. Calculate total earnings: Gross - Commission\\
+& 2. Show breakdown: By day, week, month, ride\\
+& 3. Display statistics: Average per ride, Best days, Trends\\
+& 4. Provide earnings summary for tax purposes\\
+& 5. Enable earnings withdrawal process (external)\\
+\hline
+Outputs & Earnings dashboard, Detailed reports, Summary\\
+\hline
+Postconditions & Driver informed about earnings performance\\
+\hline
+Error Handling & No earnings: "Complete rides to see earnings"\\
+& Calculation error: "Earnings temporarily unavailable"\\
+\hline
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\section{Specific Requirements - Non-Functional}
+
+\subsection{Performance Requirements}
+
+\subsubsection{Response Time Requirements}
+\begin{table}[H]
+\centering
+\caption{Response Time Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|c|}
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Target} & \textbf{Max}\\
+\hline
+NFR-PERF-01 & App launch to main screen & 2 seconds & 3 seconds\\
+\hline
+NFR-PERF-02 & Location search autocomplete & 500ms & 1 second\\
+\hline
+NFR-PERF-03 & Fare calculation & 1 second & 2 seconds\\
+\hline
+NFR-PERF-04 & Driver matching & 3 seconds & 5 seconds\\
+\hline
+NFR-PERF-05 & Map loading and rendering & 2 seconds & 3 seconds\\
+\hline
+NFR-PERF-06 & Real-time location update & 3 seconds & 5 seconds\\
+\hline
+NFR-PERF-07 & API response time (95th percentile) & 1 second & 2 seconds\\
+\hline
+NFR-PERF-08 & Database query response & 500ms & 1 second\\
+\hline
+NFR-PERF-09 & Push notification delivery & 2 seconds & 5 seconds\\
+\hline
+NFR-PERF-10 & SOS alert processing & 1 second & 2 seconds\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Throughput \& Capacity Requirements}
+\begin{table}[H]
+\centering
+\caption{Throughput and Capacity Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Requirement}\\
+\hline
+NFR-PERF-11 & Concurrent active rides & 500 minimum\\
+\hline
+NFR-PERF-12 & Simultaneous users & 10,000 minimum\\
+\hline
+NFR-PERF-13 & Ride requests per minute (peak) & 100\\
+\hline
+NFR-PERF-14 & API requests per second & 200\\
+\hline
+NFR-PERF-15 & Database transactions per second & 500\\
+\hline
+NFR-PERF-16 & WebSocket connections & 5,000 concurrent\\
+\hline
+NFR-PERF-17 & SMS messages per minute & 50\\
+\hline
+NFR-PERF-18 & Push notifications per minute & 200\\
+\hline
+NFR-PERF-19 & Image uploads per minute & 20\\
+\hline
+NFR-PERF-20 & Geolocation queries per second & 100\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Resource Utilization Requirements}
+\begin{table}[H]
+\centering
+\caption{Resource Utilization Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Limit}\\
+\hline
+NFR-PERF-21 & Mobile app memory usage & ≤ 150MB\\
+\hline
+NFR-PERF-22 & Mobile app storage usage & ≤ 100MB\\
+\hline
+NFR-PERF-23 & Mobile app battery consumption & ≤ 5\% per hour\\
+\hline
+NFR-PERF-24 & Mobile app data usage & ≤ 10MB per ride\\
+\hline
+NFR-PERF-25 & Backend server CPU usage & ≤ 70\% average\\
+\hline
+NFR-PERF-26 & Backend server memory usage & ≤ 80\%\\
+\hline
+NFR-PERF-27 & Database storage growth & ≤ 1GB per month\\
+\hline
+NFR-PERF-28 & Network bandwidth & ≤ 10Mbps average\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Reliability Requirements}
+
+\subsubsection{Availability Requirements}
+\begin{table}[H]
+\centering
+\caption{Availability Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Requirement}\\
+\hline
+NFR-REL-01 & System uptime (24/7) & 99.5\%\\
+\hline
+NFR-REL-02 & System uptime (operational hours 6AM-11PM) & 99.9\%\\
+\hline
+NFR-REL-03 & API availability & 99.9\%\\
+\hline
+NFR-REL-04 & Database availability & 99.95\%\\
+\hline
+NFR-REL-05 & External service dependency availability & 99\%\\
+\hline
+NFR-REL-06 & Maximum continuous downtime & 15 minutes\\
+\hline
+NFR-REL-07 & Maximum monthly downtime & 4 hours\\
+\hline
+NFR-REL-08 & Maintenance window availability & 95\%\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Fault Tolerance Requirements}
+\begin{table}[H]
+\centering
+\caption{Fault Tolerance Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Requirement}\\
+\hline
+NFR-REL-09 & Automatic failover time & ≤ 2 minutes\\
+\hline
+NFR-REL-10 & Data loss after failure & Zero\\
+\hline
+NFR-REL-11 & Graceful degradation & Essential features remain\\
+\hline
+NFR-REL-12 & Service recovery time & ≤ 5 minutes\\
+\hline
+NFR-REL-13 & Database recovery point objective & 5 minutes\\
+\hline
+NFR-REL-14 & Database recovery time objective & 15 minutes\\
+\hline
+NFR-REL-15 & Disaster recovery time & ≤ 4 hours\\
+\hline
+NFR-REL-16 & Backup completion time & ≤ 1 hour\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Data Integrity Requirements}
+\begin{table}[H]
+\centering
+\caption{Data Integrity Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Requirement}\\
+\hline
+NFR-REL-17 & Ride data accuracy & 100\%\\
+\hline
+NFR-REL-18 & Payment data accuracy & 100\%\\
+\hline
+NFR-REL-19 & User data consistency & 100\%\\
+\hline
+NFR-REL-20 & Transaction atomicity & Guaranteed\\
+\hline
+NFR-REL-21 & Data synchronization & Real-time\\
+\hline
+NFR-REL-22 & Conflict resolution & Automatic\\
+\hline
+NFR-REL-23 & Data validation & Pre and post\\
+\hline
+NFR-REL-24 & Audit trail completeness & 100\%\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Security Requirements}
+
+\subsubsection{Authentication \& Authorization}
+\begin{table}[H]
+\centering
+\caption{Authentication and Authorization Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SEC-01 & All communications shall use TLS 1.3 encryption\\
+\hline
+NFR-SEC-02 & User authentication via OTP with JWT tokens\\
+\hline
+NFR-SEC-03 & JWT token expiration: 30 days access, 90 days refresh\\
+\hline
+NFR-SEC-04 & Admin authentication with 2-factor option\\
+\hline
+NFR-SEC-05 & Role-based access control (RBAC) with minimum privileges\\
+\hline
+NFR-SEC-06 & Session timeout: 30 minutes inactivity\\
+\hline
+NFR-SEC-07 & Password policy: Minimum 8 chars, complexity requirements\\
+\hline
+NFR-SEC-08 & Account lockout after 5 failed attempts\\
+\hline
+NFR-SEC-09 & Secure password hashing using bcrypt (cost factor 12)\\
+\hline
+NFR-SEC-10 & API key rotation every 90 days\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Data Protection Requirements}
+\begin{table}[H]
+\centering
+\caption{Data Protection Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SEC-11 & Sensitive data encryption at rest (AES-256)\\
+\hline
+NFR-SEC-12 & Personal data masking in logs and displays\\
+\hline
+NFR-SEC-13 & Secure storage of driver documents\\
+\hline
+NFR-SEC-14 & GDPR-like compliance for Pakistani data protection\\
+\hline
+NFR-SEC-15 & Data retention: Ride data 90 days, User data 5 years\\
+\hline
+NFR-SEC-16 & Right to data deletion upon account closure\\
+\hline
+NFR-SEC-17 & Data backup encryption\\
+\hline
+NFR-SEC-18 & Secure key management using HSM/equivalent\\
+\hline
+NFR-SEC-19 & Regular security audits and vulnerability scans\\
+\hline
+NFR-SEC-20 & Penetration testing quarterly\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Application Security Requirements}
+\begin{table}[H]
+\centering
+\caption{Application Security Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SEC-21 & Input validation and sanitization for all inputs\\
+\hline
+NFR-SEC-22 & SQL injection prevention using parameterized queries\\
+\hline
+NFR-SEC-23 & Cross-site scripting (XSS) protection\\
+\hline
+NFR-SEC-24 & Cross-site request forgery (CSRF) protection\\
+\hline
+NFR-SEC-25 & Rate limiting: 100 requests/minute per user\\
+\hline
+NFR-SEC-26 & API endpoint authorization checks\\
+\hline
+NFR-SEC-27 & Secure error handling (no sensitive data in errors)\\
+\hline
+NFR-SEC-28 & Mobile app root/jailbreak detection\\
+\hline
+NFR-SEC-29 & Certificate pinning for API calls\\
+\hline
+NFR-SEC-30 & Code obfuscation for mobile apps\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Emergency System Security}
+\begin{table}[H]
+\centering
+\caption{Emergency System Security Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SEC-31 & SOS system shall work even if app is force-closed\\
+\hline
+NFR-SEC-32 & Emergency data transmission priority over other traffic\\
+\hline
+NFR-SEC-33 & Emergency location tracking even with GPS off\\
+\hline
+NFR-SEC-34 & Secure emergency contact verification\\
+\hline
+NFR-SEC-35 & Emergency alert non-repudiation\\
+\hline
+NFR-SEC-36 & Emergency system audit logging\\
+\hline
+NFR-SEC-37 & Emergency data retention: 7 years minimum\\
+\hline
+NFR-SEC-38 & Law enforcement access protocol\\
+\hline
+NFR-SEC-39 & Emergency system redundancy\\
+\hline
+NFR-SEC-40 & False alarm prevention mechanisms\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Safety Requirements}
+
+\subsubsection{Emergency System Safety}
+\begin{table}[H]
+\centering
+\caption{Emergency System Safety Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SAFE-01 & SOS button accessible from lock screen (configurable)\\
+\hline
+NFR-SAFE-02 & Emergency alerts shall have 99.9\% delivery reliability\\
+\hline
+NFR-SAFE-03 & Emergency location accuracy within 10 meters\\
+\hline
+NFR-SAFE-04 & Emergency response time: Admin notification within 10 seconds\\
+\hline
+NFR-SAFE-05 & Continuous location tracking during emergency\\
+\hline
+NFR-SAFE-06 & Emergency contact notification within 30 seconds\\
+\hline
+NFR-SAFE-07 & Emergency system shall function in low-network conditions\\
+\hline
+NFR-SAFE-08 & Emergency false alarm prevention (3-second hold)\\
+\hline
+NFR-SAFE-09 & Emergency data backup every 10 seconds during incident\\
+\hline
+NFR-SAFE-10 & Emergency system testing monthly\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Safety Requirements}
+\begin{table}[H]
+\centering
+\caption{Driver Safety Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SAFE-11 & 100\% driver document verification before first ride\\
+\hline
+NFR-SAFE-12 & Driver re-verification annually\\
+\hline
+NFR-SAFE-13 & Driver rating threshold: Minimum 3.0 to remain active\\
+\hline
+NFR-SAFE-14 & Driver working hours limit: 12 hours per day\\
+\hline
+NFR-SAFE-15 & Driver rest period: 8 hours between shifts\\
+\hline
+NFR-SAFE-16 & Driver location sharing with admin during rides\\
+\hline
+NFR-SAFE-17 & Driver emergency training materials\\
+\hline
+NFR-SAFE-18 & Driver incident reporting system\\
+\hline
+NFR-SAFE-19 & Driver insurance verification\\
+\hline
+NFR-SAFE-20 & Driver vehicle safety checks\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Rider Safety Requirements}
+\begin{table}[H]
+\centering
+\caption{Rider Safety Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SAFE-21 & Rider emergency contact requirement\\
+\hline
+NFR-SAFE-22 & Ride sharing with contacts feature\\
+\hline
+NFR-SAFE-23 & Rider rating visibility before ride acceptance\\
+\hline
+NFR-SAFE-24 & Anonymous rider-driver communication\\
+\hline
+NFR-SAFE-25 & Ride route deviation alerts\\
+\hline
+NFR-SAFE-26 & Estimated time of arrival accuracy ±2 minutes\\
+\hline
+NFR-SAFE-27 & Rider cancellation safety (no penalty in unsafe situations)\\
+\hline
+NFR-SAFE-28 & Rider incident reporting\\
+\hline
+NFR-SAFE-29 & Rider safety guidelines and tips\\
+\hline
+NFR-SAFE-30 & Night ride safety enhancements\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Vehicle Safety Requirements}
+\begin{table}[H]
+\centering
+\caption{Vehicle Safety Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SAFE-31 & Vehicle registration verification\\
+\hline
+NFR-SAFE-32 & Vehicle insurance verification\\
+\hline
+NFR-SAFE-33 & Vehicle fitness certification\\
+\hline
+NFR-SAFE-34 & Vehicle capacity limits enforcement\\
+\hline
+NFR-SAFE-35 & Vehicle tracking during rides\\
+\hline
+NFR-SAFE-36 & Vehicle speed monitoring\\
+\hline
+NFR-SAFE-37 & Vehicle maintenance reminders\\
+\hline
+NFR-SAFE-38 & Vehicle safety equipment verification\\
+\hline
+NFR-SAFE-39 & Vehicle inspection records\\
+\hline
+NFR-SAFE-40 & Vehicle replacement policy\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Usability Requirements}
+
+\subsubsection{User Interface Requirements}
+\begin{table}[H]
+\centering
+\caption{User Interface Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-USE-01 & First-time user booking within 3 minutes\\
+\hline
+NFR-USE-02 & Mobile app learnability: 90\% feature discovery in 1 week\\
+\hline
+NFR-USE-03 & Error recovery: 95\% success rate\\
+\hline
+NFR-USE-04 & Task completion: 95\% success rate for primary tasks\\
+\hline
+NFR-USE-05 & User satisfaction: 4.0+ average app store rating\\
+\hline
+NFR-USE-06 & Accessibility: WCAG 2.1 AA compliance\\
+\hline
+NFR-USE-07 & Multilingual support: Urdu and English\\
+\hline
+NFR-USE-08 & Touch target size: Minimum 44×44 pixels\\
+\hline
+NFR-USE-09 & Font size: Minimum 16 points for critical information\\
+\hline
+NFR-USE-10 & Color contrast: 4.5:1 minimum ratio\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Interface Safety}
+\begin{table}[H]
+\centering
+\caption{Driver Interface Safety Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-USE-11 & Hands-free interaction: Voice commands for critical actions\\
+\hline
+NFR-USE-12 & Minimal interaction while driving\\
+\hline
+NFR-USE-13 & Large touch targets: 48×48 dp minimum\\
+\hline
+NFR-USE-14 & High contrast mode for daylight visibility\\
+\hline
+NFR-USE-15 & Voice-guided navigation\\
+\hline
+NFR-USE-16 & Automatic screen brightness adjustment\\
+\hline
+NFR-USE-17 & Driving mode detection\\
+\hline
+NFR-USE-18 & Distraction minimization\\
+\hline
+NFR-USE-19 & Emergency access without unlocking\\
+\hline
+NFR-USE-20 & Offline capability for critical functions\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Error Handling \& Help}
+\begin{table}[H]
+\centering
+\caption{Error Handling and Help Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-USE-21 & Error messages: Clear, actionable, non-technical\\
+\hline
+NFR-USE-22 & Help availability: Contextual help within 2 taps\\
+\hline
+NFR-USE-23 & Tutorials: Interactive for first-time users\\
+\hline
+NFR-USE-24 & Support access: Within app, maximum 3 steps\\
+\hline
+NFR-USE-25 & FAQ coverage: 95\% of common questions\\
+\hline
+NFR-USE-26 & Error recovery suggestions\\
+\hline
+NFR-USE-27 & Confirmation for destructive actions\\
+\hline
+NFR-USE-28 & Undo functionality where applicable\\
+\hline
+NFR-USE-29 & Progress indication for long operations\\
+\hline
+NFR-USE-30 & Feedback collection after critical actions\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Maintainability Requirements}
+
+\subsubsection{Code Quality Requirements}
+\begin{table}[H]
+\centering
+\caption{Code Quality Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-MAIN-01 & Code modularity: Separation of concerns\\
+\hline
+NFR-MAIN-02 & Test coverage: Minimum 80\% unit test coverage\\
+\hline
+NFR-MAIN-03 & Code documentation: 30\% comment density\\
+\hline
+NFR-MAIN-04 & Coding standards: ESLint, PEP8 compliance\\
+\hline
+NFR-MAIN-05 & Code review: 100\% of changes reviewed\\
+\hline
+NFR-MAIN-06 & Dependency management: Regular updates\\
+\hline
+NFR-MAIN-07 & Configuration externalization\\
+\hline
+NFR-MAIN-08 & Logging: Structured, searchable logs\\
+\hline
+NFR-MAIN-09 & Monitoring: Comprehensive system metrics\\
+\hline
+NFR-MAIN-10 & Alerting: Proactive issue detection\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Deployment \& Operations}
+\begin{table}[H]
+\centering
+\caption{Deployment and Operations Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-MAIN-11 & Zero-downtime deployments\\
+\hline
+NFR-MAIN-12 & Rollback capability: 30-minute rollback\\
+\hline
+NFR-MAIN-13 & Feature flags for gradual rollouts\\
+\hline
+NFR-MAIN-14 & A/B testing framework\\
+\hline
+NFR-MAIN-15 & Configuration hot reload\\
+\hline
+NFR-MAIN-16 & Database migration automation\\
+\hline
+NFR-MAIN-17 & Backup automation and testing\\
+\hline
+NFR-MAIN-18 & Disaster recovery procedures\\
+\hline
+NFR-MAIN-19 & Performance monitoring\\
+\hline
+NFR-MAIN-20 & Capacity planning and scaling\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Portability Requirements}
+
+\subsubsection{Platform Compatibility}
+\begin{table}[H]
+\centering
+\caption{Platform Compatibility Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-PORT-01 & Android compatibility: 8.0+ (API 26+)\\
+\hline
+NFR-PORT-02 & iOS compatibility: 14.0+\\
+\hline
+NFR-PORT-03 & Web browser compatibility: Chrome 90+, Firefox 88+, Safari 14+\\
+\hline
+NFR-PORT-04 & Screen size support: 4.7" to 7" phones\\
+\hline
+NFR-PORT-05 & Orientation support: Portrait and landscape\\
+\hline
+NFR-PORT-06 & Density support: MDPI to XXXHDPI\\
+\hline
+NFR-PORT-07 & Network compatibility: 3G minimum, 4G/LTE recommended\\
+\hline
+NFR-PORT-08 & Language support: Urdu (RTL), English (LTR)\\
+\hline
+NFR-PORT-09 & Localization: Date, time, currency formats\\
+\hline
+NFR-PORT-10 & Accessibility: Screen reader support\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Scalability Requirements}
+
+\subsubsection{System Scalability}
+\begin{table}[H]
+\centering
+\caption{Scalability Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-SCAL-01 & User growth: Support 10× growth without redesign\\
+\hline
+NFR-SCAL-02 & Geographic expansion: Multi-city support\\
+\hline
+NFR-SCAL-03 & Horizontal scaling: Stateless services\\
+\hline
+NFR-SCAL-04 & Database scaling: Read replicas, sharding\\
+\hline
+NFR-SCAL-05 & Cache scaling: Distributed caching\\
+\hline
+NFR-SCAL-06 & Load balancing: Automatic traffic distribution\\
+\hline
+NFR-SCAL-07 & Queue processing: Asynchronous job processing\\
+\hline
+NFR-SCAL-08 & CDN integration: Static asset delivery\\
+\hline
+NFR-SCAL-09 & Monitoring at scale\\
+\hline
+NFR-SCAL-10 & Cost optimization at scale\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Legal \& Compliance Requirements}
+
+\subsubsection{Regulatory Compliance}
+\begin{table}[H]
+\centering
+\caption{Regulatory Compliance Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Requirement ID} & \textbf{Description}\\
+\hline
+NFR-LEGAL-01 & Pakistan transport regulations compliance\\
+\hline
+NFR-LEGAL-02 & Data protection laws compliance\\
+\hline
+NFR-LEGAL-03 & Tax reporting requirements\\
+\hline
+NFR-LEGAL-04 & Age verification: 16+ riders, 21+ drivers\\
+\hline
+NFR-LEGAL-05 & Terms of Service and Privacy Policy\\
+\hline
+NFR-LEGAL-06 & Record keeping: 5 years minimum\\
+\hline
+NFR-LEGAL-07 & Law enforcement cooperation protocol\\
+\hline
+NFR-LEGAL-08 & Insurance requirements verification\\
+\hline
+NFR-LEGAL-09 & Accessibility compliance\\
+\hline
+NFR-LEGAL-10 & Environmental regulations\\
+\hline
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\section{External Interface Requirements}
+
+\subsection{User Interfaces}
+
+\subsubsection{Rider Mobile Application Interfaces}
+\begin{table}[H]
+\centering
+\caption{Rider App Screen Specifications}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Screen} & \textbf{Components} & \textbf{Priority}\\
+\hline
+Splash Screen & Logo, Loading indicator & Critical\\
+\hline
+Onboarding & Feature introduction, Permissions request & High\\
+\hline
+Login/Register & Phone input, OTP verification & Critical\\
+\hline
+Home/Map & Map view, Current location, Search bar & Critical\\
+\hline
+Location Selection & Pickup/Dropoff selection, Address search & Critical\\
+\hline
+Vehicle Selection & Vehicle types, Fare estimates, Selection & Critical\\
+\hline
+Ride Request & Driver search, Waiting screen & Critical\\
+\hline
+Ride Tracking & Live map, Driver info, ETA, SOS button & Critical\\
+\hline
+Shared Rides Browser & Available rides, Savings, Join options & High\\
+\hline
+Payment Screen & Fare amount, Cash payment confirmation & Critical\\
+\hline
+Rating Screen & Star rating, Comments, Tags & High\\
+\hline
+Ride History & Past rides, Receipts, Filters & Medium\\
+\hline
+Profile Management & Personal info, Emergency contacts, Photo & High\\
+\hline
+Settings & Preferences, Notifications, Language & Medium\\
+\hline
+Emergency Contacts & Contact list, Add/remove, Verification & High\\
+\hline
+Help \& Support & FAQ, Contact support, Tutorials & Medium\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Driver Mobile Application Interfaces}
+\begin{table}[H]
+\centering
+\caption{Driver App Screen Specifications}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Screen} & \textbf{Components} & \textbf{Priority}\\
+\hline
+Registration & Document upload, Verification status & Critical\\
+\hline
+Home Screen & Online/Offline toggle, Earnings summary & Critical\\
+\hline
+Ride Request & Request modal, Pickup details, Accept/Decline & Critical\\
+\hline
+Navigation & Turn-by-turn navigation, Route overview & Critical\\
+\hline
+Ride Management & Passenger list, Start/End ride, Multiple pickups & Critical\\
+\hline
+Payment Collection & Fare amount, Cash received confirmation & Critical\\
+\hline
+Earnings Dashboard & Daily/weekly earnings, Charts, Withdrawal & High\\
+\hline
+Vehicle Management & Vehicle details, Documents, Maintenance & High\\
+\hline
+Rating Management & Rider ratings, Feedback, Performance & Medium\\
+\hline
+Profile Settings & Personal info, Availability schedule & Medium\\
+\hline
+Support & Help, Issue reporting, Contact & Medium\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Administrator Web Panel Interfaces}
+\begin{table}[H]
+\centering
+\caption{Admin Panel Interface Specifications}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Section} & \textbf{Components} & \textbf{Priority}\\
+\hline
+Dashboard & System metrics, Alerts, Quick actions & Critical\\
+\hline
+User Management & User search, Details view, Actions & Critical\\
+\hline
+Driver Verification & Document review, Approval/Rejection & Critical\\
+\hline
+Ride Monitoring & Active rides map, Ride details, Intervention & Critical\\
+\hline
+Emergency Alerts & Real-time alerts, Response tools, History & Critical\\
+\hline
+Analytics & Reports, Charts, Export, Trends & High\\
+\hline
+Configuration & System settings, Pricing, Rules, Areas & High\\
+\hline
+Support Tickets & Ticket management, Resolution tracking & Medium\\
+\hline
+Audit Logs & System activity, User actions, Security events & Medium\\
+\hline
+System Health & Performance metrics, Error logs, Uptime & High\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Hardware Interfaces}
+
+\subsubsection{Mobile Device Requirements}
+\begin{table}[H]
+\centering
+\caption{Mobile Device Hardware Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{Component} & \textbf{Requirement} & \textbf{Criticality}\\
+\hline
+GPS Receiver & Accurate to 10 meters, Supports background updates & Critical\\
+\hline
+Camera & Minimum 5MP, Auto-focus, Flash support & High\\
+\hline
+Network & 4G/LTE recommended, 3G minimum & Critical\\
+\hline
+Processor & Quad-core minimum, 1.5GHz+ & High\\
+\hline
+Memory & 2GB RAM minimum & High\\
+\hline
+Storage & 100MB free space minimum & Medium\\
+\hline
+Battery & 2500mAh minimum, Power management & Medium\\
+\hline
+Sensors & Accelerometer, Gyroscope, Compass & Medium\\
+\hline
+Audio & Microphone, Speaker, Headphone jack & Medium\\
+\hline
+Display & 4.7" minimum, Touch screen & Critical\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Software Interfaces}
+
+\subsubsection{External API Dependencies}
+\begin{table}[H]
+\centering
+\caption{External API Interface Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{API Service} & \textbf{Interface Requirements} & \textbf{Criticality}\\
+\hline
+Google Maps Platform & Maps SDK, Places API, Directions API, Geocoding API & Critical\\
+\hline
+SMS Gateway (Twilio/MSG91) & SMS sending API, Delivery reports, Error handling & Critical\\
+\hline
+Firebase Cloud Messaging & Push notification API, Device registration, Topics & Critical\\
+\hline
+Cloud Storage (AWS S3) & File upload/download API, Security, CDN & High\\
+\hline
+Payment Gateway (Future) & REST API for payments, Webhooks, Security & Low\\
+\hline
+Analytics (Google Analytics) & Event tracking API, User analytics, Custom events & Medium\\
+\hline
+Error Tracking (Sentry) & Error reporting API, Stack traces, Environment data & Medium\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Internal API Specifications}
+\begin{table}[H]
+\centering
+\caption{Internal API Requirements}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+\textbf{API Category} & \textbf{Specifications} & \textbf{Protocol}\\
+\hline
+Authentication API & JWT-based, OTP verification, Session management & REST/HTTPS\\
+\hline
+Ride Management API & Ride creation, matching, tracking, completion & REST/HTTPS\\
+\hline
+Real-time API & WebSocket connections, Live location updates & WebSocket\\
+\hline
+Payment API & Fare calculation, Payment recording, Earnings & REST/HTTPS\\
+\hline
+User Management API & Profile management, Ratings, Preferences & REST/HTTPS\\
+\hline
+Admin API & User management, Verification, Analytics & REST/HTTPS\\
+\hline
+Emergency API & SOS alerts, Emergency handling, Notifications & REST/HTTPS\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Communication Interfaces}
+
+\subsubsection{Network Communication Requirements}
+\begin{table}[H]
+\centering
+\caption{Communication Interface Requirements}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Interface} & \textbf{Requirements}\\
+\hline
+HTTP/HTTPS & TLS 1.3 encryption, HTTP/2 support, Compression\\
+\hline
+WebSocket & Secure WebSocket (wss://), Heartbeat mechanism, Reconnection\\
+\hline
+SMS & Reliable delivery, Delivery reports, Error handling\\
+\hline
+Push Notifications & Platform-specific (APNS for iOS, FCM for Android)\\
+\hline
+Email & Transactional emails, Templates, Delivery tracking\\
+\hline
+File Transfer & Secure upload/download, Progress tracking, Resume capability\\
+\hline
+Real-time Updates & Low latency (<5s), Efficient data format (JSON/Protocol Buffers)\\
+\hline
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\section{System Models and Analysis}
+
+\subsection{Use Case Model}
+
+\subsubsection{Use Case Diagram}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{FareShare Usecase Diagram.png}
+\caption{FareShare Use Case Diagram}
+\label{fig:use_case_complete}
+\end{figure}
+
+\subsubsection{Primary Use Cases}
+
+\begin{table}[H]
+\centering
+\caption{Primary Use Case Specifications}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use Case ID} & \textbf{UC-01: Book Individual Ride}\\
+\hline
+Primary Actor & Rider\\
+\hline
+Description & Rider books a non-shared ride from pickup to destination\\
+\hline
+Preconditions & Rider logged in, Location services enabled, Payment method set\\
+\hline
+Main Flow & 1. Rider opens app and views map\\
+& 2. Rider selects pickup location (auto or manual)\\
+& 3. Rider selects destination\\
+& 4. System shows available vehicle types with fares\\
+& 5. Rider selects vehicle type\\
+& 6. System finds nearby drivers\\
+& 7. Driver accepts ride\\
+& 8. System notifies rider with driver details\\
+& 9. Ride proceeds to completion\\
+\hline
+Alternative Flows & A1: No drivers available - Suggest retry or wait\\
+& A2: Rider cancels before driver acceptance\\
+& A3: Driver cancels after acceptance\\
+\hline
+Postconditions & Ride completed or cancelled with appropriate handling\\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{SOS Emergency Use Case}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use Case ID} & \textbf{UC-02: Trigger SOS Emergency Alert}\\
+\hline
+Primary Actor & Rider or Driver\\
+\hline
+Description & User triggers emergency alert during active ride\\
+\hline
+Preconditions & Active ride in progress, Network connectivity\\
+\hline
+Main Flow & 1. User presses and holds SOS button (3 seconds)\\
+& 2. System captures current GPS location\\
+& 3. System retrieves ride and user details\\
+& 4. System sends SMS to emergency contacts\\
+& 5. System notifies FareShare emergency team\\
+& 6. System starts continuous location tracking\\
+& 7. Emergency team responds and handles situation\\
+& 8. Emergency marked as resolved\\
+\hline
+Alternative Flows & A1: Network unavailable - Store alert and send when available\\
+& A2: False alarm - User cancels within 10 seconds\\
+\hline
+Postconditions & Emergency handled, Incident recorded, Follow-up actions\\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Admin Use Case: Driver Verification}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Use Case ID} & \textbf{UC-03: Verify Driver Documents}\\
+\hline
+Primary Actor & Administrator\\
+\hline
+Description & Admin verifies driver submitted documents manually\\
+\hline
+Preconditions & Driver submitted documents, Admin logged in\\
+\hline
+Main Flow & 1. Admin views driver verification queue\\
+& 2. Admin selects driver for verification\\
+& 3. System displays driver documents (CNIC, License, Registration)\\
+& 4. Admin examines document authenticity and clarity\\
+& 5. Admin makes decision: Approve, Reject, or Request more\\
+& 6. System updates driver status based on decision\\
+& 7. System notifies driver of verification result\\
+& 8. Admin records verification details and comments\\
+\hline
+Alternative Flows & A1: Documents unclear - Request better quality images\\
+& A2: Verification conflict - Escalate to senior admin\\
+\hline
+Postconditions & Driver verified or rejected, Appropriate notifications sent\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Data Model}
+
+\subsubsection{Context Diagram}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{FareShare Context Diagram.png}
+\caption{FareShare Context Diagram}
+\label{fig:er_diagram}
+\end{figure}
+
+\subsubsection{Core Database Tables}
+
+\begin{table}[H]
+\centering
+\caption{Core Database Schema}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Table Name} & \textbf{Users}\\
+\hline
+Primary Key & user\_id (UUID)\\
+\hline
+Fields & phone\_number (String, Unique), role (Enum: rider/driver/admin),\\
+& full\_name (String), email (String, Optional), profile\_photo\_url (String),\\
+& verification\_status (Enum), rating\_average (Float), total\_ratings (Integer),\\
+& created\_at (Timestamp), last\_login (Timestamp), status (Enum)\\
+\hline
+Relationships & One-to-Many: Rides (as rider), Ratings (given/received),\\
+& One-to-One: DriverDetails (if role=driver), EmergencyContacts\\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Rides Table Schema}
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Table Name} & \textbf{Rides}\\
+\hline
+Primary Key & ride\_id (UUID)\\
+\hline
+Fields & rider\_ids (Array of UUIDs), driver\_id (UUID, Foreign Key),\\
+& status (Enum), is\_shared (Boolean), vehicle\_type (Enum),\\
+& pickup\_locations (Array of GeoPoints), dropoff\_locations (Array),\\
+& estimated\_fare (Float), final\_fare (Float), individual\_fares (Map),\\
+& distance (Float), duration (Integer), route\_polyline (String),\\
+& created\_at (Timestamp), accepted\_at (Timestamp), started\_at (Timestamp),\\
+& completed\_at (Timestamp), cancelled\_at (Timestamp), cancellation\_reason (String)\\
+\hline
+Indexes & Geospatial index on pickup\_locations, driver\_id + status,\\
+& created\_at (for time-based queries), rider\_ids (array contains)\\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Appendices}
+
+\subsection{Appendix A: References}
+\begin{enumerate}
+    \item \textbf{IEEE Std 830-1984} - IEEE Guide to Software Requirements Specifications
+    \item \textbf{IEEE Std 29148-2018} - Systems and software engineering - Life cycle processes - Requirements engineering
+    \item \textbf{FareShare Project Proposal} - November 9, 2025
+    \item \textbf{Meeting Minutes} - November 3, 2025 to January 10, 2026
+    \item \textbf{Project Milestone 2 Description} - CSC-225 Course Document
+    \item \textbf{Google Maps Platform Documentation}
+    \item \textbf{Firebase Documentation}
+    \item \textbf{Pakistan Transport Regulations} - Ministry of Communications
+\subsection{Appendix B: Complete Use Case List}
+
+\subsubsection{Rider Use Cases (15)}
+\begin{enumerate}
+\item Register Account with Phone Number
+\item Verify OTP and Login
+\item Set/Update Profile Information
+\item Add/Manage Emergency Contacts
+\item Book Individual Ride
+\item Enable Fare-Sharing for Ride
+\item Search and Join Shared Rides
+\item Track Ride in Real-time
+\item Cancel Ride (with reasons)
+\item Rate Driver after Ride
+\item View Ride History and Receipts
+\item Share Ride Details with Contacts
+\item Trigger SOS Emergency Alert
+\item Report Issue or Incident
+\item Manage Payment and Preferences
+\end{enumerate}
+
+\subsubsection{Driver Use Cases (12)}
+\begin{enumerate}
+\item Register with Document Upload
+\item Complete Profile and Vehicle Information
+\item Go Online/Offline (Availability)
+\item Accept/Decline Ride Requests
+\item Navigate to Pickup Location
+\item Start Ride (Pickup Confirmation)
+\item Manage Multiple Pickups (Shared Rides)
+\item Navigate to Destination(s)
+\item End Ride and Calculate Fare
+\item Confirm Cash Payment Received
+\item Rate Rider after Ride
+\item View Earnings and Performance
+\end{enumerate}
+
+\subsubsection{Administrator Use Cases (10)}
+\begin{enumerate}
+\item Login with Admin Credentials
+\item Verify Driver Documents
+\item Manage User Accounts (Suspend/Activate)
+\item Monitor Active Rides
+\item Respond to Emergency Alerts
+\item Handle Disputes and Reports
+\item Generate Analytics Reports
+\item Configure System Settings
+\item Manage Service Areas and Pricing
+\item Audit System Activity and Logs
+\end{enumerate}
+
+\subsection{Appendix C: Data Dictionary}
+
+\subsubsection{User-Related Data Elements}
+\begin{table}[H]
+\centering
+\caption{User Data Dictionary}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Description}\\
+\hline
+user\_id & UUID v4 & Unique user identifier\\
+\hline
+phone\_number & String (+92XXXXXXXXXX) & Pakistani mobile number\\
+\hline
+role & Enum & 'rider', 'driver', 'admin'\\
+\hline
+verification\_status & Enum & 'unverified', 'pending', 'verified', 'rejected'\\
+\hline
+rating\_average & Decimal(3,2) & Average rating 0.00-5.00\\
+\hline
+total\_rides & Integer & Completed ride count\\
+\hline
+emergency\_contacts & Array & List of emergency contact objects\\
+\hline
+preferences & JSON & User preferences and settings\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Ride-Related Data Elements}
+\begin{table}[H]
+\centering
+\caption{Ride Data Dictionary}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Description}\\
+\hline
+ride\_id & UUID v4 & Unique ride identifier\\
+\hline
+status & Enum & 'created', 'searching', 'accepted', 'in\_progress', 'completed', 'cancelled'\\
+\hline
+is\_shared & Boolean & True if fare-sharing enabled\\
+\hline
+vehicle\_type & Enum & 'bike', 'rickshaw', 'mini', 'sedan'\\
+\hline
+pickup\_locations & GeoJSON Array & Array of pickup coordinates\\
+\hline
+dropoff\_locations & GeoJSON Array & Array of dropoff coordinates\\
+\hline
+estimated\_fare & Decimal(10,2) & PKR estimated fare\\
+\hline
+final\_fare & Decimal(10,2) & PKR actual fare\\
+\hline
+distance\_km & Decimal(6,2) & Total distance in kilometers\\
+\hline
+duration\_min & Integer & Total duration in minutes\\
+\hline
+route\_polyline & String & Encoded route polyline\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Safety-Related Data Elements}
+\begin{table}[H]
+\centering
+\caption{Safety Data Dictionary}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Description}\\
+\hline
+emergency\_alert\_id & UUID v4 & Unique emergency identifier\\
+\hline
+alert\_type & Enum & 'sos', 'route\_deviation', 'panic'\\
+\hline
+alert\_status & Enum & 'active', 'responding', 'resolved', 'false\_alarm'\\
+\hline
+location\_history & GeoJSON Array & Array of location points during emergency\\
+\hline
+response\_actions & JSON Array & List of response actions taken\\
+\hline
+resolution\_notes & Text & Details of how emergency was resolved\\
+\hline
+contact\_notifications & JSON Array & Record of contacts notified\\
+\hline
+admin\_response\_time & Integer & Seconds to first admin response\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Appendix D: Pricing Algorithm Details}
+
+\subsubsection{Fare Calculation Formula}
+The fare calculation uses the following formula:
+
+\[
+\text{Fare} = \text{Base Fare} + (\text{Distance} \times \text{Distance Rate}) + (\text{Time} \times \text{Time Rate})
+\]
+
+\subsubsection{Vehicle Type Pricing}
+\begin{table}[H]
+\centering
+\caption{Vehicle Pricing Matrix (PKR)}
+\begin{tabularx}{\textwidth}{|l|c|c|c|}
+\hline
+\textbf{Vehicle Type} & \textbf{Base Fare} & \textbf{Per Km Rate} & \textbf{Per Min Rate}\\
+\hline
+Bike & 30 & 8 & 2\\
+\hline
+Rickshaw & 50 & 12 & 3\\
+\hline
+Mini Car & 80 & 18 & 4\\
+\hline
+Sedan & 120 & 25 & 5\\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsubsection{Fare-Sharing Calculation}
+For shared rides with \(n\) passengers:
+\[
+\text{Individual Fare}_i = \frac{\text{Base Fare}}{n} + \left(\frac{\text{Distance}_i}{\text{Total Distance}} \times \text{Distance Fare}\right) + \left(\frac{\text{Time}_i}{\text{Total Time}} \times \text{Time Fare}\right)
+\]
+
+\textbf{Minimum Savings Guarantee:} Each passenger saves at least 25\% compared to individual ride.
+\end{document}
