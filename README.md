@@ -31,7 +31,7 @@ This repository serves as the central hub for all deliverables related to the Fa
 ## 🔗 Required Links for Evaluation
 
 * **Meeting Minutes:** [View Google Sheet](https://docs.google.com/spreadsheets/d/1icNtoJUt-Sqbvc_5QsccybhQL6K0P7KoVlpiBb76orc/edit?gid=0#gid=0)
-* **Use Case Diagram:** [View Diagram](https://drive.google.com/file/d/13236W8RstxJFNPdqwINWRRlSt3D906r-/view?usp=sharing)
+* **Use Case Diagram:** [View Diagram](https://app.diagrams.net/#G1t6b99WQq6pVwVoKTSZr5wlGBn8XyMgS1#%7B%22pageId%22%3A%22MbtcdR-cM2gA4Oen4Fqv%22%7D)
 * **Context Diagram:** [View Diagram](https://app.diagrams.net/#G1a7Qfi6HQtc5XmJXbbniQqd3aK5qWz6p-#%7B%22pageId%22%3A%22wHdYGlxZrgoq92sIWD5_%22%7D)
 
 ---
