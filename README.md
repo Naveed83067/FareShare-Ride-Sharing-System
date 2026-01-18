@@ -18,7 +18,7 @@ This repository serves as the central hub for all deliverables related to the Fa
 
 <div align="center">
 
-**Instructor:** Asiya Batool  
+**Instructor:** [Asiya Batool](https://www.linkedin.com/in/asiya-batool-9b7b0a1a5/)  
 *(Department of Computer Science, Namal University Mianwali)*
 
 **Requirement Provider (RP):** Rana Muhammad Adeel  
@@ -28,11 +28,72 @@ This repository serves as the central hub for all deliverables related to the Fa
 
 ---
 
-## 🔗 Required Links for Evaluation
+## 📁 Repository Structure
+├── Design Report/
+│ └── Milestone3_Design_Report.pdf
+├── Design Diagrams/
+│ ├── Use Case Diagram.drawio
+│ ├── Data Flow Diagrams/
+│ │ ├── Level0-Context Diagram.drawio
+│ │ ├── Level1-DFD.drawio
+│ │ └── Level2-DFD.drawio
+│ ├── Sequence Diagrams/
+│ │ ├── BookRide_Sequence.drawio
+│ │ └── AcceptRide_Sequence.drawio
+│ ├── Activity Diagrams/
+│ │ ├── RideBooking_Activity.drawio
+│ │ └── DriverRegistration_Activity.drawio
+│ ├── Class Diagram.drawio
+│ └── Component Diagram.drawio
+├── Traceability/
+│ └── Requirements-Design Traceability Table.xlsx
+├── Prototypes/
+│ ├── Paper_Prototype_Scans/
+│ └── Figma_Prototype/
+│ └── prototype.fig
+├── Meeting Minutes/
+│ ├── Meeting1_Minutes.pdf
+│ ├── Meeting2_Minutes.pdf
+│ └── Meeting_Recordings/
+│ ├── Meeting1_Video.mp4
+│ └── Meeting2_Video.mp4
+└── README.md
 
-* **Meeting Minutes:** [View Google Sheet](https://docs.google.com/spreadsheets/d/1icNtoJUt-Sqbvc_5QsccybhQL6K0P7KoVlpiBb76orc/edit?gid=0#gid=0)
-* **Use Case Diagram:** [View Diagram](https://app.diagrams.net/#G1t6b99WQq6pVwVoKTSZr5wlGBn8XyMgS1#%7B%22pageId%22%3A%22MbtcdR-cM2gA4Oen4Fqv%22%7D)
-* **Context Diagram:** [View Diagram](https://app.diagrams.net/#G1a7Qfi6HQtc5XmJXbbniQqd3aK5qWz6p-#%7B%22pageId%22%3A%22wHdYGlxZrgoq92sIWD5_%22%7D)
+---
+
+## 📋 Project Milestone 3 Deliverables
+
+### 1. System Design Diagrams
+- **Use Case Diagram**: [View Diagram](https://app.diagrams.net/#G1t6b99WQq6pVwVoKTSZr5wlGBn8XyMgS1#%7B%22pageId%22%3A%22MbtcdR-cM2gA4Oen4Fqv%22%7D)
+- **Data Flow Diagrams**: [Context Diagram](https://app.diagrams.net/#G1a7Qfi6HQtc5XmJXbbniQqd3aK5qWz6p-#%7B%22pageId%22%3A%22wHdYGlxZrgoq92sIWD5_%22%7D)
+- **Sequence Diagrams**: Modeling key interactions for ride booking, payment, and driver allocation
+- **Activity Diagrams**: Workflows for ride booking, driver matching, and payment processing
+- **Class Diagram**: System structure with classes, attributes, operations, and relationships
+- **Component Diagram**: High-level system components and dependencies
+
+### 2. Design Documentation
+- **Design Report**: Complete system design documentation with all diagrams and justifications
+- **Design Assumptions & Constraints**: Documented assumptions about user roles, deployment environment, and limitations
+- **Key Design Decisions**: Justifications for process decomposition, class relationships, and diagram distribution
+- **Requirements-Design Traceability Table**: Mapping SRS requirements to design artifacts
+
+### 3. Prototypes
+- **Paper-Based Prototype**: Initial interface sketches presented in first RP meeting
+- **Figma Interactive Prototype**: [View Prototype](https://www.figma.com/design/X1RGz517AJMZ1P3mxR0kug/FareShare-Prototype?node-id=0-1&t=vAqoUkrh7UyChOHb-1)
+
+### 4. Meeting Documentation
+- **Meeting Minutes**: [View Google Sheet](https://docs.google.com/spreadsheets/d/1icNtoJUt-Sqbvc_5QsccybhQL6K0P7KoVlpiBb76orc/edit?gid=0#gid=0)
+- **Meeting Recordings**: Videos of both RP meetings with prototype discussions
+
+---
+
+## 🔗 Essential Links
+
+- **Meeting Minutes**: [Google Sheet](https://docs.google.com/spreadsheets/d/1icNtoJUt-Sqbvc_5QsccybhQL6K0P7KoVlpiBb76orc/edit?gid=0#gid=0)
+- **Use Case Diagram**: [View](https://app.diagrams.net/#G1t6b99WQq6pVwVoKTSZr5wlGBn8XyMgS1#%7B%22pageId%22%3A%22MbtcdR-cM2gA4Oen4Fqv%22%7D)
+- **Context Diagram**: [View](https://app.diagrams.net/#G1a7Qfi6HQtc5XmJXbbniQqd3aK5qWz6p-#%7B%22pageId%22%3A%22wHdYGlxZrgoq92sIWD5_%22%7D)
+- **Figma Prototype**: [View Prototype](https://www.figma.com/design/X1RGz517AJMZ1P3mxR0kug/FareShare-Prototype?node-id=0-1&t=vAqoUkrh7UyChOHb-1)
+- **GitHub Repository**: [View Repository](https://github.com/Naveed83067/FareShare-Ride-Sharing-System)
 
 ---
 
