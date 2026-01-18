@@ -18,10 +18,10 @@ This repository serves as the central hub for all deliverables related to the Fa
 
 <div align="center">
 
-**Instructor:** [Asiya Batool](https://www.linkedin.com/in/asiya-batool-9b7b0a1a5/)  
+**Instructor:** [Asiya Batool](https://www.linkedin.com/in/asiya-batool-125079340/)  
 *(Department of Computer Science, Namal University Mianwali)*
 
-**Requirement Provider (RP):** Rana Muhammad Adeel  
+**Requirement Provider (RP):** [Rana Muhammad Adeel](https://www.linkedin.com/in/rana-muhammad-adeel-46a873254/)  
 *(Final Year Student, Namal University Mianwali)*
 
 </div>
@@ -94,7 +94,7 @@ This repository serves as the central hub for all deliverables related to the Fa
 - **Context Diagram**: [View](https://app.diagrams.net/#G1a7Qfi6HQtc5XmJXbbniQqd3aK5qWz6p-#%7B%22pageId%22%3A%22wHdYGlxZrgoq92sIWD5_%22%7D)
 - **Figma Prototype**: [View Prototype](https://www.figma.com/design/X1RGz517AJMZ1P3mxR0kug/FareShare-Prototype?node-id=0-1&t=vAqoUkrh7UyChOHb-1)
 - **GitHub Repository**: [View Repository](https://github.com/Naveed83067/FareShare-Ride-Sharing-System)
-
+- **LinkedIn Post**: [View LinkedIn Post](https://www.linkedin.com/posts/muhammad-naveed-a75357333_softwareengineering-srs-systemdesign-activity-7418629830927171584-CHw1?utm_source=share&utm_medium=member_android&rcm=ACoAAFPhHjkBmDGSr2pZwLV_Fcn_nbOGqHEdifY)
 ---
 
 <div align="center">
